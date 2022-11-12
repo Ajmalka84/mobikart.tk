@@ -5,7 +5,7 @@ const state = {
 }
 
 module.exports.connect = function (done){
-    let URL= 'mongodb://127.0.0.1:27017'
+    let URL= 'mongodb+srv://ajmalka:ajmal123@cluster0.evh3lfs.mongodb.net/test'
     let dbname = 'MobiKart'
 
     mongoClient.connect(URL,(err,data)=>{
