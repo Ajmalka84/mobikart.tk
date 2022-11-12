@@ -1,4 +1,5 @@
 let userhelpers =require('../helpers/user-helpers');
+require('dotenv').config()
 let twilio = require('twilio');
 const serviceID = process.env.serviceID
 const accountSID = process.env.accountSID
@@ -7,7 +8,7 @@ const client = require('twilio')(accountSID, token)
 let paypal = require('paypal-rest-sdk');
 const e = require('express');
 const { ReservationList } = require('twilio/lib/rest/taskrouter/v1/workspace/task/reservation');
-require('dotenv').config()
+
 
 let loginmessage
 let mob={No:null}
