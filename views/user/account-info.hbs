@@ -1,0 +1,46 @@
+
+<div class="container">
+<div class="" >
+<div class="tab-pane " id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+    <form action="/savedInfo" method="post">
+        <div class="row">
+            <div class="col-sm-6">
+                <label>First Name *</label>
+                <input type="text" class="form-control" name="firstname" value="{{response.name}}" required>
+            </div><!-- End .col-sm-6 -->
+
+            <div class="col-sm-6">
+                <label>Last Name *</label>
+                <input type="text" class="form-control" name="lastname"  value="{{response.name1}}"required>
+            </div><!-- End .col-sm-6 -->
+        </div><!-- End .row -->
+
+        <label>Mobile *</label>
+        <input type="text" class="form-control" value="{{response.mobile}}" required>
+        
+        <label>Email address *</label>
+        <input type="email" class="form-control" name="email" value="{{response.email}}" required>
+
+        <button type="submit" class="btn btn-outline-primary-2">
+            <span>SAVE CHANGES</span>
+            <i class="icon-long-arrow-right"></i>
+        </button>
+    </form>
+
+    <form action="/changePassword" method="post">
+
+        <h4 class="mt-5"> Change Password</h4>
+        <label>Current password (leave blank to leave unchanged)</label>
+        <input type="password" name="currentpassword" class="form-control" >
+
+        <label>New password (leave blank to leave unchanged)</label>
+        <input type="password" name="newpassword"class="form-control">
+         
+        <button type="submit" class="btn btn-outline-primary-2">
+            <span>SAVE CHANGES</span>
+            <i class="icon-long-arrow-right"></i>
+        </button>
+    </form>
+</div><!-- .End .tab-pane -->
+</div>
+</div>

@@ -1,0 +1,269 @@
+<div class="container">
+    <div class="">
+        <div class="tab-pane" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+
+            <div class="container ">
+                {{#each response}}
+                <div class="col-md-6">
+                    <p>The following addresses will be used on the checkout page by default.</p>
+                    <div class="card card-dashboard">
+                        <div class="card-body">
+                            <h3 class="card-title">Address</h3><!-- End .card-title -->
+
+                            <p>
+                            {{this.firstname}} {{this.lastname}}<br>
+                            {{this.address}}<br>
+                            {{this.city}}<br>
+                            {{this.pin}}<br>
+                              
+                            {{!-- <a href="/editAddress/{{this._id}}" >Edit <i class="icon-edit"></i></a> --}}
+                            <button type="button" class="btn bg-transparent text-primary" data-bs-toggle="modal" onclick="geteditAddressDetails('{{this._id}}')" data-bs-target="#editAddress" >
+                               Edit<i class="icon-edit"></i>
+                            </button>
+                        
+                        <button class="btn bg-transparent text-primary" onclick="deleteAddress('{{this._id}}')">Delete</button>
+                        </p>
+                        </div><!-- End .card-body -->
+                    </div><!-- End .card-dashboard -->
+                </div><!-- End .col-lg-6 -->
+                {{/each}}
+                <button type="button"  class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addAddress" >Add Address</button>
+                {{!-- <a href="/userAddress"> --}}
+                
+            </div><!-- End .row -->
+        </div><!-- .End .tab-pane -->
+    </div>
+</div>
+
+{{!-- Edit Address Modal --}}
+<div class="modal fade" id="editAddress" tabindex="-1" aria-labelledby="editAddressLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editAddressLabel">Edit Address</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+      </div>
+      <div class="modal-body">
+        <form action="/editAddress" id="editAddressForm">
+            
+                <div class="p-5">
+                   <div class="row">
+                    <div class="col-sm-6">
+                        <label>First Name *</label>
+                        <input type="name" id="editfirstname" name="firstname" onkeyup="editvalidatefirstname()" class="form-control"  required>
+                        <span class="text-danger" id="editfirstnameMessage"></span>
+                    </div><!-- End .col-sm-6 -->
+
+                    <div class="col-sm-6">
+                        <label>Last Name *</label>
+                        <input type="text" id="editlastname" onkeyup="editvalidatelastname()" name="lastname" class="form-control"  required>
+                        <span id="editlastnameMessage" class="text-danger"></span>
+                    </div><!-- End .col-sm-6 -->
+                   </div>
+            
+                <label>Address *</label>
+                <input type="text" rows="1" class="form-control" id="editaddress" onkeyup="editvalidateaddress()" placeholder="House number and Street name" name="address"  required>
+                <span id="editaddressMessage" class="text-danger"></span>
+                
+                
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Town / City *</label>
+                        <input type="text" id="editcity" onkeyup="editvalidatecity()" name="city" class="form-control" required>
+                        <span id="editcityMessage" class="text-danger"></span>
+                    </div><!-- End .col-sm-6 -->
+
+                    <div class="col-sm-6">
+                        <label>PIN *</label>
+                        <input type="text"  name="pin" id="editpin" onkeyup="editvalidatepin()" class="form-control"  required>
+                        <span id="editpinMessage" class="text-danger"></span>
+                    </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+                     <input type="text" id="addressId" name="addressId" hidden>
+                {{!-- <button type="submit"  class="btn btn-outline-primary-2">
+                    <span>Add Address</span>
+                    <i class="icon-long-arrow-right"></i>
+                </button> --}}
+      </div>
+      <div class="modal-footer">
+        <p id="editaddressformMessage"  class="text-danger"></p>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" onclick="return editAddressform()">Edit Address</button>
+      </div>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+
+{{!-- Add Address Modal --}}
+<div class="modal fade" id="addAddress" tabindex="-1" aria-labelledby="addAddressLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addAddressLabel">Add Address</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+      </div>
+      <div class="modal-body">
+        <form action="/addAddress" id="addAddressForm">
+            
+                <div class="p-5">
+                   <div class="row">
+                    <div class="col-sm-6">
+                        <label>First Name *</label>
+                        <input type="name" id="firstname" name="firstname" onkeyup="validatefirstname()" class="form-control" required>
+                        <span class="text-danger" id="firstnameMessage"></span>
+                    </div><!-- End .col-sm-6 -->
+
+                    <div class="col-sm-6">
+                        <label>Last Name *</label>
+                        <input type="text" id="lastname" onkeyup="validatelastname()" name="lastname" class="form-control" required>
+                        <span id="lastnameMessage" class="text-danger"></span>
+                    </div><!-- End .col-sm-6 -->
+                   </div>
+            
+                <label>Address *</label>
+                <textarea type="text" rows="1" class="form-control" id="address" onkeyup="validateaddress()" placeholder="House number and Street name" name="address" required></textarea>
+                <span id="addressMessage" class="text-danger"></span>
+                
+                
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Town / City *</label>
+                        <input type="text" id="city" onkeyup="validatecity()" name="city" class="form-control" required>
+                        <span id="cityMessage" class="text-danger"></span>
+                    </div><!-- End .col-sm-6 -->
+
+                    <div class="col-sm-6">
+                        <label>PIN *</label>
+                        <input type="text"  name="pin" id="pin" onkeyup="validatepin()" class="form-control" required>
+                        <span id="pinMessage" class="text-danger"></span>
+                    </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+
+                {{!-- <button type="submit"  class="btn btn-outline-primary-2">
+                    <span>Add Address</span>
+                    <i class="icon-long-arrow-right"></i>
+                </button> --}}
+      </div>
+      <div class="modal-footer">
+        <p id="addressformMessage"  class="text-danger"></p>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" onclick="return validateaddaddressform()">Add Address</button>
+      </div>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+<script src="/javascripts/validations.js"></script>
+<script>
+    function deleteAddress(addressId){
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+    }).then(function(result) {
+        if (result.value) {
+            Swal.fire(
+                "Deleted!",
+                "Your file has been deleted.",
+                "success"
+            )
+                    $.ajax({
+                        url: '/deleteAddress/'+addressId,
+                        method: 'delete',
+                        success: (response)=>{
+                            if(response.status){
+
+                            window.location.reload()
+                            }
+                        }
+                    })
+            // result.dismiss can be "cancel", "overlay",
+            // "close", and "timer"
+        } else if (result.dismiss === "cancel") {
+            Swal.fire(
+                "Cancelled",
+                "Your imaginary file is safe :)",
+                "error"
+            )
+        }
+    });
+    }
+
+    function validateaddaddressform(){
+    if(!validatefirstname() || !validatelastname() || !validateaddress() || !validatecity() || !validatepin()){
+      addressformMessage.style.display='block';
+        addressformMessage.innerHTML='Please fix Error';
+        setTimeout(function(){addressformMessage.style.display='none';},3000);
+        return false;
+    }else{
+       addressformMessage.innerHTML='';
+        $.ajax({
+            url: '/addAddress',
+            type:'patch',
+            data: $("#addAddressForm").serialize(),
+            success: (response)=>{
+               if(response.status){
+                location.reload()
+               } 
+            }
+        })
+    }
+  }
+
+  function geteditAddressDetails(addressId){
+    console.log('hi')
+    $.ajax({
+        url: '/geteditAddressDetails',
+        data: {
+            addressId: addressId
+        },
+        method: 'post',
+        success: (response)=>{
+           console.log(response[0]._id)
+           document.getElementById('editfirstname').value=response[0].firstname
+           document.getElementById('editlastname').value=response[0].lastname
+           document.getElementById('editaddress').value=response[0].address
+           document.getElementById('editcity').value=response[0].city
+           document.getElementById('editpin').value=response[0].pin
+           document.getElementById('addressId').value=response[0]._id
+           
+        }
+    })
+  }
+  
+  function editAddressform(){
+    if(!editvalidatefirstname() || !editvalidatelastname() || !editvalidateaddress() || !editvalidatecity() || !editvalidatepin()){
+      editaddressformMessage.style.display='block';
+        editaddressformMessage.innerHTML='Please fix Error';
+        setTimeout(function(){editaddressformMessage.style.display='none';},3000);
+        return false;
+    }else{
+       editaddressformMessage.innerHTML='';
+        $.ajax({
+            url: '/editAddress',
+            type:'patch',
+            data: $("#editAddressForm").serialize(),
+            success: (response)=>{
+               if(response.status){
+                location.reload()
+               } 
+            }
+        })
+    }
+  }
+</script>
+
+
+

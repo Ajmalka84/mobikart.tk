@@ -1,0 +1,94 @@
+<div class='bg-primary'>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-box">
+                    <div class="form-tab">
+                        <div class="tab-content" id="tab-content-5">
+                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+                                      <div class="">
+                                        <h3 class="text-center my-4">Admin Login</h3>
+                                      </div><!-- End .form-group -->
+                                    <form action="/admin" method="post">
+                                        
+                                        <div class="form-group">
+                                            <label for="Email">Username or email address *</label>
+                                            <input type="Email" class="form-control" onkeyup="validateEmail()" id="Email" name="username" required>
+                                            <span id="erroremail" class="text-danger"></span> 
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="Password">Password *</label>
+                                            <input type="password" class="form-control" id="Password" onkeyup="validatePassword()" name="password" required>
+                                            <span id="errorPassword" class="text-danger"></span>
+                                            {{!-- <p class="mt-1" style="font-size:xx-small">Forgot Your Password? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="rounded-pill">Send OTP</button>&nbsp;&nbsp;<input class="rounded-pill" type="text" placeholder="enter OTP..."></p>
+                                             --}}
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2" onclick="return validateform()">
+                                                <span>LOG IN</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                        </div><!-- End .form-footer -->
+                                        <span class="text-danger" id="errorlogin"></span>
+                                        <P class="text-danger">{{loginmessage}}</P>
+                                    
+                                    </form>
+                                </div><!-- .End .tab-pane -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    let errorEmail = document.getElementById('erroremail');
+  let errorPassword = document.getElementById('errorPassword')
+  let errorLogin = document.getElementById('errorlogin')
+
+  function validateEmail(){
+    
+    var vemail = document.getElementById('Email').value;
+
+    if(vemail.length == 0){
+       errorEmail.innerHTML='invalid email'; 
+    }
+    if(!vemail.match(/^([_\-\.0-9a-zA-Z]+)@([_\-\..0-9a-zA-Z]+)\.([a-z]){2,7}$/)){
+        errorEmail.innerHTML='Email Invalid';
+        return false;
+    }
+    errorEmail.innerHTML=' ';
+    return true;
+  }
+
+  function validatePassword(){
+
+    var vpassword = document.getElementById('Password').value;
+    
+    if(vpassword.length < 4){
+        errorPassword.innerHTML='min 4 charecters required';
+        return false;
+    }
+    errorPassword.innerHTML=' ';
+    return true;
+  }
+
+  function validateform(){
+
+    if(!validateEmail() || !validatePassword()){
+        errorLogin.style.display='block';
+        errorLogin.innerHTML='Please fix Error';
+        setTimeout(function(){errorLogin.style.display='none';},3000);
+        return false;
+    }else{
+    errorLogin.innerHTML=' ';
+    return true;
+    }
+  }
+</script>

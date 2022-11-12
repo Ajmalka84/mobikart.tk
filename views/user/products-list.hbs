@@ -1,0 +1,232 @@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />   
+        <main class="main">
+        	{{!-- <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">Products</h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header --> --}}
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Products</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <div class="container">
+                	<div class="row">
+                		<div class="col-lg-9">
+
+                            {{#each response}}
+                            <div class="products mb-3">
+                                
+                            
+                                <div class="product product-list">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-4"  >
+                                            <figure class="product-media">
+                                                <a href="/product-details/{{this._id}}">
+                                                    <img src="/images/product/{{this.img.[0]}}"/>
+                                            </figure><!-- End .product-media -->
+                                        </div><!-- End .col-sm-6 col-lg-3 -->
+                                        
+                                        <div class="col-lg-7">
+                                            <div class="">
+                                                
+                                                {{#if this.wishlist}}
+                                                <i id="heart{{this._id}}" onclick="removeWishlist('{{this._id}}')"  class="fa-solid fa-heart text-danger float-right"></i>
+												  {{else}} 
+                                                <i id="heart{{this._id}}1" onclick="addToWishlist('{{this._id}}')" class="fa-solid fa-heart text-muted float-right"></i>
+												{{/if}}
+                                                <div class="product-cat">
+                                                    <a href="#">{{this.brand}}</a>
+                                                </div>
+                                                <h3 class="product-title "><a href="/product-details/{{this._id}}">{{this.name}}</a></h3><!-- End .product-title -->
+                                               <div class="row">
+												<div class=" col-6 mt-1">
+													{{#if this.priceAfterdiscount}}
+                                                    <div class="product-price">
+                                                    <h5>₹ {{this.priceAfterdiscount}}/-</h5>
+                                                    </div><!-- End .product-price -->
+                                                    {{else}}
+                                                    <div class="product-price">
+                                                    <h5>₹ {{this.price}}/-</h5>
+                                                    </div><!-- End .product-price -->
+                                                    {{/if}}
+												</div>
+													{{#if this.priceAfterdiscount}}
+													<div class="col-6 product-price">
+														<span class="text-dark">₹ <del>{{this.price}}</del></span> 
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<span class="text-success">{{this.selectedOffer}} % offer</span>
+													</div><!-- End .product-price -->
+													{{/if}}
+                                                   </div>
+
+                                                <div class="product-content">
+                                                   {{this.productDescription1}}<br>
+												   {{this.productDescription2}} 
+												   <br>
+												   {{this.productDescription3}}
+												   <br>
+												   {{this.productDescription4}} <br>
+												<button id="addtocart" class="btn btn-outline-success mt-2" onclick="cartManage('{{this._id}}')">Add to Cart</button>
+                                                </div><!-- End .product-content -->
+                                                {{!-- <div class="pb-2"> --}}
+												{{!-- </div> --}}
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .col-lg-6 -->                                       
+                                    </div><!-- End .row -->
+                                </div><!-- End .product -->
+                            </div><!-- End .products -->
+                            {{/each}} 
+
+                           
+
+                			<nav aria-label="Page navigation" class="text-center">
+							    
+							      
+									<ul class="pagination justify-content-center">
+										{{#ifEquals '1' results.currentPage false}}
+										<li class="page-item disabled">
+											<a class="page-link" href="/products-list/?page={{../results.previous.page}}" tabindex="-1" aria-disabled="true">Previous</a>
+										</li>
+										{{else}}
+											<li class="page-item ">
+											<a class="page-link" href="/products-list/?page={{../results.previous.page}}" tabindex="-1" aria-disabled="true">Previous</a>
+										</li>
+										{{/ifEquals}}
+											{{#each results.pages}}
+											{{#ifEquals ../currentPage this false}}
+
+										<li class="page-item active"><a class="page-link" href="/products-list/?page={{../this}}">{{../this}}</a></li>
+										{{else}}
+											<li class="page-item active"><a class="page-link" href="/products-list/?page={{../this}}">{{../this}}</a></li>
+											{{/ifEquals}}
+											{{/each}}
+											{{#ifEquals results.pageCount results.currentPage false}}
+										
+
+										<li class="page-item disabled">
+											<a class="page-link" href="/products-list/?page={{../results.next.page}}">Next</a>
+										</li>
+										{{else}}
+											<li class="page-item">
+											<a class="page-link" href="/products-list/?page={{../results.next.page}}">Next</a>
+										</li>
+										{{/ifEquals}}
+									</ul>
+							    
+							</nav>
+                		</div><!-- End .col-lg-9 -->
+                		<aside class="col-lg-2 order-lg-first">
+                			<div class="sidebar sidebar-shop">
+                				<div class="widget widget-clean">
+                					<label>Filters:</label>
+                					<a href="/products-list/?page=1" class="sidebar-filter-clear">Clean All</a>
+                				</div><!-- End .widget widget-clean -->
+
+                				
+
+        						<div class="widget widget-collapsible">
+    								<h3 class="widget-title">
+									    <a data-toggle="collapse" href="" role="button" aria-expanded="true" aria-controls="widget-4">
+									        Brand
+									    </a>
+									</h3><!-- End .widget-title -->
+
+									<div class="collapse show" id="widget-4">
+										<div class="widget-body">
+											<div class="filter-items">
+												<form action="/filter" method="post">
+												{{#each category}}
+												<div class="filter-item">
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" class="custom-control-input" id="{{this._id}}" name="brand" value="{{this.brand}}">
+														<label class="custom-control-label" for="{{this._id}}">{{this.brand}}</label>
+													</div><!-- End .custom-checkbox -->
+												</div><!-- End .filter-item -->
+                                                 {{/each}}
+										          <button type="submit" class="btn-md btn-outline-primary mt-2">Apply Filter</button>
+												 </form>
+											</div><!-- End .filter-items -->
+										</div><!-- End .widget-body -->
+									</div><!-- End .collapse -->
+        						</div><!-- End .widget -->
+
+        						
+                			</div><!-- End .sidebar sidebar-shop -->
+                		</aside><!-- End .col-lg-3 -->
+                	</div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+        <script>
+           function cartManage(productData){
+            $.ajax({
+                url:'/cart/'+productData, 
+                method :'get',
+                success:(response)=>{
+                    if(response.status){
+                   let count = $('#cartCount').html()
+                   count=parseInt(count)+1
+                   $('#cartCount').html(count)                                          
+                        Swal.fire({
+                            icon: "success",
+                            title: "Item added to cart",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                 }
+                }
+            })
+           }
+         
+         //document.getElementById('wishlistButton').addEventListener('click',()=>{
+           // document.getElementById('wishlistButton').style.backgroundColor= 'red'
+         //})  
+         
+           
+        function addToWishlist(productId){
+            $.ajax({
+                url: '/add-to-wishlist/'+productId,
+                method : 'get',
+                success : (response)=>{ 
+					
+					let count = document.getElementById('wishlist-count').innerHTML       
+					console.log(count)
+					console.log("count")
+                    let wishlistcount =  parseInt(count)+1
+					//let heart = document.getElementById('heart'+productId)
+					//heart.classList.toggle('text-danger')
+					document.getElementById('wishlist-count').innerHTML = wishlistcount
+					window.location.reload()
+                }
+            })
+        }
+
+		function removeWishlist(productId){
+            $.ajax({
+                url: '/remove-wishlist/'+productId,
+                method : 'get',
+                success : (response)=>{
+					
+					let count = document.getElementById('wishlist-count').innerHTML       
+					console.log(count)
+					console.log("count")
+                    let wishlistcount =  parseInt(count)-1
+					//let heart = document.getElementById('heart'+productId)
+					//heart.classList.toggle('text-dark')
+					document.getElementById('wishlist-count').innerHTML = wishlistcount
+					window.location.reload()
+                }
+            })
+		}
+        </script>
+
+		
+		
+

@@ -1,0 +1,279 @@
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container d-flex align-items-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Products</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Centered</li>
+                    </ol>
+
+                    
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+            
+
+            <div class="page-content">
+                <div class="container">
+                    <div class="product-details-top mb-2">
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{#each response}}
+                                <div class="product-gallery product-gallery-vertical">
+                                    <div class="row">
+                                        <figure class="product-main-image">
+                                            <img id="product-zoom"   src="/images/product/{{this.img.[0]}}" data-zoom-image="/images/product/{{this.img.[0]}}" alt="product image">
+                                             
+                                            <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                                <i class="icon-arrows"></i>
+                                            </a>
+                                        </figure><!-- End .product-main-image -->
+
+                                        <div id="product-zoom-gallery" class="product-image-gallery">
+                                            <a class="product-gallery-item active" href="#" data-image="/images/product/{{this.img.[0]}}" data-zoom-image="/images/product/{{this.img.[0]}}">
+                                                <img src="/images/product/{{this.img.[0]}}"   alt="product side">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="#" data-image="/images/product/{{this.img.[1]}}" data-zoom-image="/images/product/{{this.img.[1]}}">
+                                                <img src="/images/product/{{this.img.[1]}}" alt="product cross">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="#" data-image="/images/product/{{this.img.[2]}}" data-zoom-image="/images/product/{{this.img.[2]}}">
+                                                <img src="/images/product/{{this.img.[2]}}" alt="product with model">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="#" data-image="/images/product/{{this.img.[3]}}" data-zoom-image="/images/product/{{this.img.[3]}}">
+                                                <img src="/images/product/{{this.img.[3]}}" alt="product back">
+                                            </a>
+                                        </div><!-- End .product-image-gallery -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .product-gallery -->
+                                {{/each}}
+                            </div><!-- End .col-md-6 -->
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 ">
+                                {{#each response}}
+                                <div class="product-details  mt-3">
+                                    <h1 class="product-title">{{this.name}}</h1><!-- End .product-title -->
+
+                                    <div class="ratings-container">
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
+                                        </div><!-- End .ratings -->
+                                        <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
+                                    </div><!-- End .rating-container -->
+
+                                    <div class="product-price">
+                                        {{#if this.priceAfterdiscount}}
+                                        <div class="product-price">
+                                        <h4>₹ {{this.priceAfterdiscount}}/-</h4>
+                                        </div><!-- End .product-price -->
+                                        {{else}}
+                                        <div class="product-price">
+                                        <h4>₹ {{this.price}}/-</h4>
+                                        </div><!-- End .product-price -->
+                                        {{/if}}
+                                    </div><!-- End .product-price -->
+                                    {{#if this.priceAfterdiscount}}
+                                    <div class="product-price">
+                                        <span class="text-dark"> <del><h6>₹{{this.price}}</h6></del></span> 
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span ><h5 class="text-success">{{this.selectedOffer}} % offer</h5></span>
+                                    </div><!-- End .product-price -->
+                                    {{/if}}
+
+                                    <div class="product-content">
+                                        {{this.productDescription1}}<br>
+                                        {{this.productDescription2}}<br>
+                                        {{this.productDescription3}}<br>
+                                        {{this.productDescription4}}<br>
+                                    </div><!-- End .product-content -->
+
+                                    <div class="product-details-action">
+                                        <div class="details-action-col">
+                                            <div class="product-details-quantity">
+                                                <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                                            </div><!-- End .product-details-quantity -->
+
+                                            <a href="#" class="btn-product btn-cart m-3"><span>add to cart</span></a>
+                                        </div><!-- End .details-action-col -->      
+                                    </div><!-- End .product-details-action -->
+
+                                    <div class="product-details-footer">
+                                        <div class="product-cat">
+                                            <span>Category:</span>
+                                            <span>{{this.brand}}</span>
+                                        </div><!-- End .product-cat -->
+                                    </div><!-- End .product-details-footer -->
+                                </div><!-- End .product-details -->
+                                {{/each}}
+                            </div><!-- End .col-md-6 -->
+
+                            
+                        </div><!-- End .row -->
+                    </div><!-- End .product-details-top -->
+
+                    
+
+                    <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
+                    <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
+                        data-owl-options='{
+                            "nav": false, 
+                            "dots": true,
+                            "margin": 20,
+                            "loop": false,
+                            "responsive": {
+                                "0": {
+                                    "items":1
+                                },
+                                "480": {
+                                    "items":2
+                                },
+                                "768": {
+                                    "items":3
+                                },
+                                "992": {
+                                    "items":4
+                                },
+                                "1200": {
+                                    "items":4,
+                                    "nav": true,
+                                    "dots": false
+                                }
+                            }
+                        }'>
+                        {{#each products}}
+                        <div class="product product-7 text-center">
+                            <figure class="product-media">
+                                <span class="product-label label-new">New</span>
+                                <a href="product.html">
+                                    <img src="/images/product/{{this.img.[0]}}" alt="Product image" class="product-image">
+                                </a>
+
+                                <div class="product-action-vertical">
+                                   {{#if this.wishlist}}
+                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable" id="heart1{{this._id}}" onclick="removeWishlist1('{{this._id}}')"><span>add to wishlist</span></a>
+                                    {{else}}
+                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable" id="heart1{{this._id}}" onclick="addToWishlist1('{{this._id}}')"><span>add to wishlist</span></a>
+                                    {{/if}}
+                                </div><!-- End .product-action-vertical -->
+
+                                <div class="product-action">
+                                    <button class="btn-product btn-cart" title="Add to cart" id="addtocart" onclick="cartManage1('{{this._id}}')">Add to Cart</button>
+                                </div><!-- End .product-action -->
+                            </figure><!-- End .product-media -->
+
+                            <div class="product-body">
+                                <div class="product-cat">
+                                    <a href="#">{{this.brand}}</a>
+                                </div><!-- End .product-cat -->
+                                <h3 class="product-title"><a href="product.html">{{this.name}}</a></h3><!-- End .product-title -->
+                                {{#if this.selectedOffer}}
+                                <div class="product-price">
+                                    ₹{{this.priceAfterdiscount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="old-price">Was ₹{{this.price}}</span>
+                                </div><!-- End .product-price -->
+                                {{else}}
+                                <div class="product-price">
+                                    ₹{{this.price}}
+                                </div><!-- End .product-price -->
+                                {{/if}}
+                            </div><!-- End .product-body -->
+                        </div><!-- End .product -->
+                        {{/each}}
+                    </div><!-- End .owl-carousel -->
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+        
+        {{!-- <script src="/assets/js/bootstrap.bundle.min.js"></script>  for selecting images  --}}
+    
+<script src="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.2.3/src/jquery.ez-plus.js"></script>
+<script src="/javascripts/jquery.elevateZoom-3.0.8.min.js"></script>
+    <script>
+        $(".zoom_01").ezPlus();
+    </script>
+
+
+
+
+
+        <script>
+           function cartManage(productData){
+            $.ajax({
+                url:'/cart/'+productData, 
+                method :'get',
+                success:(response)=>{
+                    if(response){
+                   let count = $('#cartCount').html()
+                   count=parseInt(count)+1
+                   $('#cartCount').html(count)
+                     Swal.fire({
+                            icon: "success",
+                            title: "Item added to cart",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                 }
+                }
+            })
+           }
+         
+          function cartManage1(productData){
+        $.ajax({
+            url:'/cart/'+productData, 
+            method :'get',
+            success:(response)=>{
+                if(response.status){
+                let count = $('#cartCount').html()
+                count=parseInt(count)+1
+                $('#cartCount').html(count)                                          
+                    Swal.fire({
+                        icon: "success",
+                        title: "Item added to cart",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            }
+        })
+    }
+
+    function addToWishlist1(productId){
+        $.ajax({
+            url: '/add-to-wishlist/'+productId,
+            method : 'get',
+            success : (response)=>{ 
+                
+                let count = document.getElementById('wishlist-count').innerHTML       
+                console.log(count)
+                console.log("count")
+                let wishlistcount =  parseInt(count)+1
+            //    let heart = document.getElementById('heart'+productId)
+            //  heart.classList.toggle('text-danger')
+                document.getElementById('wishlist-count').innerHTML = wishlistcount
+                window.location.reload()
+            }
+        })
+    }
+
+    function removeWishlist1(productId){
+            $.ajax({
+                url: '/remove-wishlist/'+productId,
+                method : 'get',
+                success : (response)=>{
+					
+					let count = document.getElementById('wishlist-count').innerHTML       
+					console.log(count)
+					console.log("count")
+                    let wishlistcount =  parseInt(count)-1
+					//let heart = document.getElementById('heart'+productId)
+					//heart.classList.toggle('text-dark')
+					document.getElementById('wishlist-count').innerHTML = wishlistcount
+					window.location.reload()
+                }
+            })
+		}
+        </script>
+
+
+   

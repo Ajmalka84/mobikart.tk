@@ -1,0 +1,107 @@
+<div class='bg-primary'>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-box">
+                    <div class="form-tab">
+                        <div class="tab-content" id="tab-content-5">
+                             <div class="tab-pane fade show active" id="otplogin" role="tabpanel" aria-labelledby="signin-tab">
+                                 <form action="/sendotp" method="post">
+                                        <div class="form-group">
+                                            <label for="mobile">Your Mobile No *</label>
+                                            <input type="mobile Number" class="form-control" id="mobile" onkeyup="validateMobile()" name="mobile" required>
+                                            <span id="errormobile" class="text-danger"></span>
+                                        </div><!-- End .form-group -->
+                                        
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2" onclick="return sendotp()">
+                                                <span>Send OTP</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                            <span class="text-danger" id="errorotp"></span>
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                    <form action="/submitotp" method="post">
+                                        <div class="form-group">
+                                            <label for="otp">Enter OTP *</label>
+                                            <input type="OTP" class="form-control" id="otp" onkeyup="validateotp()" name="otp" required>
+                                            <span id="errorOTP" class="text-danger"></span>
+                                        </div><!-- End .form-group -->
+                                        
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2" onclick='return sbmtotp()'>
+                                                <span>Submit</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                            <span class="text-danger" id="errOtp"></span>
+                                        </div><!-- End .form-footer -->
+                                    </form>   
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+
+let errormobile = document.getElementById('errormobile')
+let errorotp = document.getElementById('errorotp')
+
+   function validateMobile(){
+   var vmobile =document.getElementById('mobile').value
+   
+   if(!vmobile.match(/^\d{10}$/)){
+       errormobile.innerHTML='Enter valid Number';
+       return false;
+   }else{
+   errormobile.innerHTML=' ';
+   return true;
+  }
+  }
+
+  function sendotp(){
+
+    if(!validateMobile()){
+        errorotp.style.display='block';
+        errorotp.innerHTML='Enter valid Number';
+        setTimeout(function(){errorotp.style.display='none';},3000);
+        return false;
+    }else{
+    errorotp.innerHTML=' ';
+    return true;
+    }
+  }
+
+let ErrorOTP = document.getElementById('errorOTP');
+let errorOtp =ducument.getElementById('errOtp');
+
+function validateotp(){
+   var votp =document.getElementById('otp').value;
+   
+   if(!votp.match(/^[0-9]{1,6}$/)){
+       ErrorOTP.innerHTML='Enter valid OTP';
+       return false;
+   }else{
+   ErrorOTP.innerHTML=' ';
+   return true;
+  }
+  }
+
+  function sbmtotp(){
+
+    if(validateotp()){
+      errorOtp.innerHTML=' ';
+      return true;
+    }else{
+        errorOtp.style.display='block';
+        errorOtp.innerHTML='Enter Valid OTP';
+        setTimeout(function(){errorOtp.style.display='none';},3000);
+        return false;
+    }
+  }
+</script>

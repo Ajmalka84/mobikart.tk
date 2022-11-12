@@ -1,0 +1,264 @@
+        <header class="header header-10 header-intro-clearance">
+            <div class="header-middle">
+                <div class="container">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler">
+                            <span class="sr-only">Toggle mobile menu</span>
+                            <i class="icon-bars"></i>
+                        </button>
+                        
+                        <a href="/" class="logo">                           
+                            <h3 class="text-center" style="margin: 0"><span class="text-primary">M</span>obi<span class="text-primary">K</span>art</h3>
+                        </a>
+                    </div><!-- End .header-left -->
+
+                    <div class="header-center">
+                        <div class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
+                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                            {{!-- <form action="#" method="get"> --}}
+                                <div class="header-search-wrapper search-wrapper-wide">
+                                    
+                                    <label for="q" class="sr-only">Search</label>
+                                    <input type="search" class="form-control" name="productSearch" onkeyup="productSearch(this)" id="productSearch" placeholder="Search product ..." >
+                                    {{!-- <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button> --}}
+                                </div><!-- End .header-search-wrapper -->
+                                <ul id="searchResults" class="" style=" position: absolute; max-width: 570px; z-index:5; background-color: white; width: 600px; display:none ;margin: 0px;" > </ul>
+                                {{!-- <section id="searchResults">
+                                </section> --}}
+                            {{!-- </form> --}}
+                        </div><!-- End .header-search -->
+                    </div>
+
+                    <div class="header-right">
+                        <div class="header-dropdown-link">
+                            {{#if title}}
+                            <a href="/login">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="22" fill="currentColor" class="bi bi-person" viewBox="5 0 6 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                            </svg>
+                            <p><span class="wishlist-txt" >Login</span></p>
+                            </a>
+                            {{else}}
+                            <a href="/logout">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="22" fill="currentColor" class="bi bi-person" viewBox="2 0 6 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                            </svg>
+                            <p>Logout</p>
+                            </a>
+                            {{/if}}
+                            <a href="/wishlist" class="wishlist-link">
+                                <i class="icon-heart-o"></i>
+                                <span id="wishlist-count" class="wishlist-count">{{wishlist}}</span>
+                                <span class="wishlist-txt">Wishlist</span>
+                            </a>
+
+                            <div class="dropdown cart-dropdown">
+                                <a href="/cart" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon-shopping-cart"></i>
+                                    <span class="cart-count" id="cartCount" >{{cartCount}}</span>
+                                    <span class="cart-txt">Cart</span>
+                                </a>
+                            </div><!-- End .cart-dropdown -->
+                        </div>
+                    </div><!-- End .header-right -->
+                </div><!-- End .container -->
+            </div><!-- End .header-middle -->
+
+            <div class="header-bottom sticky-header d-flex">
+                <div class="container justify-content-center">                    
+                    <div class="header-center justify-content-center">
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li class="megamenu-container active">
+                                    <a href="/" class="sf">Home</a>
+                                </li>
+                                <li>
+                                    <a href="/userProfile" class="sf">Account</a>
+                                </li>
+                                <li>
+                                    <a href="/products-list/?page=1" class="sf">Product</a>
+                                </li>    
+                            </ul><!-- End .menu -->
+                        </nav><!-- End .main-nav -->
+                    </div><!-- End .col-lg-9 -->
+                </div><!-- End .container -->
+            </div><!-- End .header-bottom -->
+        </header><!-- End .header -->
+
+        {{{body}}}
+        <footer class="footer footer-2">
+            {{!-- <div class="icon-boxes-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon">
+                                    <i class="icon-rocket"></i>
+                                </span>
+
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Free Shipping</h3><!-- End .icon-box-title -->
+                                    <p>Orders ₹500 or more</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+                        
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon">
+                                    <i class="icon-rotate-left"></i>
+                                </span>
+
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Free Returns</h3><!-- End .icon-box-title -->
+                                    <p>Within 30 days</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon">
+                                    <i class="icon-info-circle"></i>
+                                </span>
+
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Get 50% Off 1 Item</h3><!-- End .icon-box-title -->
+                                    <p>When you sign up</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="icon-box icon-box-side">
+                                <span class="icon-box-icon">
+                                    <i class="icon-life-ring"></i>
+                                </span>
+
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">We Support</h3><!-- End .icon-box-title -->
+                                    <p>24/7 amazing services</p>
+                                </div><!-- End .icon-box-content -->
+                            </div><!-- End .icon-box -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .icon-boxes-container --> --}}
+
+            <div class="footer-middle border-0 bg-dark">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                            <div class="text-center">
+                                <h3 class="mb-2 text-white " style="margin: 0"><span class="text-primary">M</span>obi<span class="text-primary">K</span>art</h3>
+                                <p>Our vision is to be earth's most customer centric company; and to build a place where people can come in to find and discover anything which they might want to buy online. We serve our customers better in many ways with the services we have, to always be relevant in their enriched lives, and to form lifelong precious relationships. </p>
+                                
+                                <div class="widget-about-info">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12">
+                                            <span class="widget-about-title text-white">Got Question? Call us 24/7</span>
+                                            <a href="tel:123456789">+91 9633415164</a>
+                                        </div><!-- End .col-sm-6 -->
+                                        {{!-- <div class="col-sm-6 col-md-6">
+                                            <span class="widget-about-title">Payment Method</span>
+                                            <figure class="footer-payments">
+                                                <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                                            </figure><!-- End .footer-payments -->
+                                        </div><!-- End .col-sm-6 --> --}}
+                                    </div><!-- End .row -->
+                                </div><!-- End .widget-about-info -->
+                            </div><!-- End .widget about-widget -->
+                        </div><!-- End .col-sm-12 col-lg-3 -->
+
+                        {{!-- <div class="col-sm-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">Information</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="about.html">About Molla</a></li>
+                                    <li><a href="#">How to shop on Molla</a></li>
+                                    <li><a href="faq.html">FAQ</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="login.html">Log in</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-4 col-lg-3 -->
+
+                        <div class="col-sm-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="#">Payment Methods</a></li>
+                                    <li><a href="#">Money-back guarantee!</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Shipping</a></li>
+                                    <li><a href="#">Terms and conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-4 col-lg-3 -->
+
+                        <div class="col-sm-4 col-lg-2">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="#">Sign In</a></li>
+                                    <li><a href="cart.html">View Cart</a></li>
+                                    <li><a href="#">My Wishlist</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-64 col-lg-3 --> --}}
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
+
+            <div class="bg-dark">
+                <div class="container text-center">
+                    <p class="">Copyright © 2019 MobiKart. All Rights Reserved.</p><!-- End .footer-copyright -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-bottom -->
+        </footer><!-- End .footer -->
+
+
+        <script>
+         function productSearch(e){
+            const searchResult= document.getElementById('searchResults')
+            searchResult.style.display="block"
+            console.log(searchResult)
+            let match=e.value.match(/^[a-zA-Z ]*/)
+            let match2=e.value.match(/[ ]*/)
+            if(match2[0]===e.value){
+                productList.innerHTML='';
+                return;
+
+            }
+             if (match[0]===e.value){
+                fetch('getFruits',{
+                    method: 'POST',
+                    headers : {'Content-Type': 'application/json'},
+                    body : JSON.stringify({payload : e.value})
+                }).then(res => res.json()).then(data => {
+                    let payload = data.payload;
+                    searchResult.innerHTML ='';
+                    if(payload.length < 1){
+                        searchResult.innerHTML ='<p>Sorry! Nothing found.</p>';
+                        return;
+                    }
+                    payload.forEach((item,index)=>{
+                        if(index > 0) searchResult.innerHTML +='<hr>';
+                        searchResult.innerHTML += `<a href="/product-details/${item._id}">
+                            <li  style="display:flex">
+                            <img src="/images/product/${item.img[0]}" style="width: 6rem; height: 5rem; margin-top:0px">&nbsp;
+                            <p class="text-black">${item.name}</p></li></a>`
+                    })
+                    return;
+                }) 
+             }
+         } 
+        </script>
+
+        

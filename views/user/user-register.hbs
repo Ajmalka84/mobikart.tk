@@ -1,0 +1,164 @@
+<div class='bg-primary'>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-box">
+                    <div class="form-tab">
+                        <div class="tab-content" id="tab-content-5">
+                                <div class="tab-pane fade show active" id="register" role="tabpanel" aria-labelledby="signin-tab">
+                                  <form action="/register" method="post">
+                                        
+                                        {{!-- <div class="form-group">
+                                        </div><!-- End .form-group --> --}}
+
+                                        <div class="row">
+		                					<div class="col-sm-6">
+                                            <label for="Name">Firstname *</label>
+                                            <input type="name" class="form-control" id="firstname" onkeyup="validatename()" name="name" required>
+                                            <span id="errorName" class="text-danger"></span>
+		                					</div><!-- End .col-sm-6 -->
+
+		                					<div class="col-sm-6">
+		                						<label>Last Name *</label>
+		                						<input type="name" name="name1" onkeyup="validatelastname()" id="lastname" class="form-control" value="" required>
+                                                <span id="lastnameMessage" class="text-danger"></span>
+		                						
+		                					</div><!-- End .col-sm-6 -->
+		                				</div><!-- End .row -->
+                                        
+                                        <div class="form-group">
+                                            <label for="email">Your email address *</label>
+                                            <input type="email" class="form-control" onkeyup="validateemail()" id="email" name="email" required>
+                                            <span id="error-reg-email" class="text-danger"></span>
+                                        </div><!-- End .form-group -->
+
+
+
+                                        <div class="form-group">
+                                            <label for="Mobile">Your Mobile No *</label>
+                                            <input type="mobile Number" class="form-control" id="Mobile" onkeyup="validatemobile()" name="mobile" required>
+                                            <span id="errorMobile" class="text-danger"></span>
+                                            {{!-- <p class="mt-1" style="font-size: xx-small"><button class="rounded-pill">Send OTP</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="rounded-pill" type="text" placeholder="enter OTP..."></p> --}}
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="password">Password *</label>
+                                            <input type="password" class="form-control" id="password" onkeyup="validatepassword()" name="password" required>
+                                            <span id="error-reg-password" class="text-danger"></span>
+                                        </div><!-- End .form-group -->
+                                            {{#each response}}
+                                             <input type="hidden" name="referalid" value="{{this.id}}">
+                                            {{else}} 
+                                            {{/each}}
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2" onclick="validateregister()">
+                                                <span>SIGN UP</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                            
+                                          <input type="hidden" name="status" value="true">
+                                            <span id="errorRegister" class="text-danger"></span>
+                                        </div><!-- End .form-footer -->
+                                    </form>  
+                                </div><!-- .End .tab-pane -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+  
+
+  let errorregEmail = document.getElementById('error-reg-email');
+  let lastnameMessage = document.getElementById('lastnameMessage')
+  let errorregPassword = document.getElementById('error-reg-password')
+  let errorName = document.getElementById('errorName')
+  let errorMobile = document.getElementById('errorMobile')
+  let errorRegister = document.getElementById('errorRegister')
+
+  function validatename(){
+    var vname = document.getElementById('firstname').value;
+    if(vname.length==0){
+        errorName.innerHTML='Enter firstname';
+        return false;
+    }
+    if(!vname.match(/^[A-Za-z]{3,30}\s*$/)){
+        errorName.innerHTML='Min 3 char required';
+        return false;
+    }
+    errorName.innerHTML='';
+    return true;
+  }
+
+  function validatelastname(){
+ let lastname = document.getElementById('lastname').value
+ if(lastname.length == 0){
+    lastnameMessage.innerHTML='Enter lastname'
+    return false
+ }
+ if(!lastname.match(/^[A-Za-z]{3,30}\s*$/)){
+    lastnameMessage.innerHTML='Min 3 char required'
+    return false
+ }   
+ lastnameMessage.innerHTML=''
+ return true
+ }
+
+  function validateemail(){
+    
+    var vemail = document.getElementById('email').value;
+
+    if(vemail.length == 0){
+       errorregEmail.innerHTML='invalid email'; 
+    }
+    if(!vemail.match(/^([_\-\.0-9a-zA-Z]+)@([_\-\..0-9a-zA-Z]+)\.([a-z]){2,7}$/)){
+        errorregEmail.innerHTML='Email Invalid';
+        return false;
+    }
+    errorregEmail.innerHTML=' ';
+    return true;
+  }
+
+  function validatemobile(){
+   var vmobile =document.getElementById('Mobile').value
+   
+   if(!vmobile.match(/^\d{10}$/)){
+       errorMobile.innerHTML='Enter valid Number';
+       return false;
+   }else{
+   errorMobile.innerHTML=' ';
+   return true;
+  }
+  }
+  function validatepassword(){
+
+    var vpassword = document.getElementById('password').value;
+    
+    if(vpassword.length < 4){
+        errorregPassword.innerHTML='min 4 charecters required';
+        return false;
+    }
+    errorregPassword.innerHTML=' ';
+    return true;
+  }
+
+  function validateregister(){
+    if(!validateemail() || !validatemobile() || !validatename() || !validatepassword()){
+      errorRegister.style.display='block';
+        errorRegister.innerHTML='Please fix Error';
+        setTimeout(function(){errorRegister.style.display='none';},3000);
+        return false;
+    }else{
+    errorRegister.innerHTML=' ';
+    return true;
+    }  
+  }
+   
+</script>
+
