@@ -3,9 +3,9 @@
         <div class="tab-pane" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
 
             <div class="container ">
+                    <p>The following addresses will be used on the checkout page by default.</p>
                 {{#each response}}
                 <div class="col-md-6">
-                    <p>The following addresses will be used on the checkout page by default.</p>
                     <div class="card card-dashboard">
                         <div class="card-body">
                             <h3 class="card-title">Address</h3><!-- End .card-title -->
@@ -215,7 +215,7 @@
             data: $("#addAddressForm").serialize(),
             success: (response)=>{
                if(response.status){
-                location.reload()
+                window.location.reload()
                } 
             }
         })
@@ -257,7 +257,7 @@
             data: $("#editAddressForm").serialize(),
             success: (response)=>{
                if(response.status){
-                location.reload()
+                window.location.reload()
                } 
             }
         })

@@ -1,185 +1,92 @@
 <main class="main" id="main">
-    <div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Offer Management</h5>
-        {{!-- Vertical Pills Tabs  --}}
-        <div class="d-flex col-10 align-items-start">
-        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <button class="nav-link active " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Product</button>
-            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Category</button>
-            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</button>
-        </div>
-        <div class="tab-content col-12" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                <div class="card">
-                    <div class="card-body">
-                    <h5 class="card-title">Product offerManagement</h5>
+  <div class="card">
+      <div class="card-body">
+      <h5 class="card-title">Product offerManagement</h5>
 
-                    <!-- Default Tabs -->
-                    <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
-                        <li class="nav-item flex-fill" role="presentation">
-                        <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-justified" type="button" role="tab" aria-controls="home" aria-selected="true">Products without Offer</button>
-                        </li>
-                        <li class="nav-item flex-fill" role="presentation">
-                        <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-justified" type="button" role="tab" aria-controls="profile" aria-selected="false">Products with Offers</button>
-                        </li>
-                        
-                    </ul>
-                    <div class="tab-content pt-2" id="myTabjustifiedContent">
-                        <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
-                            <table class="table" id="myTable">
-                            <input type="text" hidden>
-                             
-                            <thead class="th-lg-12">
-                                <tr class="text-center bg-white border">
-                                
-                                <th scope="col">Name</th>
-                                <th scope="col">Brand</th>
-                                <th scope="col">Price</th>
-                                
-                                <th scope="col">Image</th>
-                                <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            {{#each response}}
-                            <tbody class="bg-white align-center ">
-                                <tr class="text-center">     
-                                <td>{{this.name}}</td>  
-                                <td>{{this.brand}}</td>
-                                <td>₹ {{this.price}}</td>
-                                
-                                <td><img src="/images/product/{{this.img.[0]}}" style="width:50px ;height: 50px"  alt=""></td>
-                                        
-                                <td>
-                                    
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{this._id}}">
-                                    Add Offer
-                                    </button>
-                                </td>
-                                
-                                </tr>
-                            </tbody>
-                            {{/each}}
-                            </table>  
-                        </div>      
-                        <div class="tab-pane fade col-12" id="profile-justified" role="tabpanel" aria-labelledby="profile-tab">
-                          <table class="table" id="myTable1">
-                            <input type="text" hidden>
-
-                            <thead class="th-lg-12">
-                                <tr class="text-center bg-white border">
-                                
-                                <th scope="col">Name</th>
-                                <th scope="col">Brand</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Offer(%)</th>
-                                <th scope="col">Price after Offer</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            {{#each offerApplied}}
-                            <tbody class="bg-white align-center ">
-                                <tr class="text-center">     
-                                <td>{{this.name}}</td>  
-                                <td>{{this.brand}}</td>
-                                <td>₹ {{this.price}}</td>
-                                <td>{{this.productOffer}}</td>
-                                <td>₹ {{this.priceAfterOffer}}</td>
-                                <td><img src="/images/product/{{this.img.[0]}}" style="width:50px ;height: 50px"  alt=""></td>
-                                        
-                                <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#EditOffer{{this._id}}">Edit Offer</button>   
-                                <a href="/admin/delete-offer/{{this._id}}" class="btn btn-outline-danger">Delete Offer</a></td>
-                                
-                                </tr>
-                            </tbody>
-                            {{/each}}
-                            </table> 
-                        </div>
-                    </div><!-- End Default Tabs -->
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Category OfferManagement</h5>
-
-                    <!-- Default Tabs -->
-                    <ul class="nav nav-tabs d-flex" id="myTabjustified1" role="tablist">
-                      <li class="nav-item flex-fill" role="presentation">
-                        <button class="nav-link w-100 active" id="home-tab1" data-bs-toggle="tab" data-bs-target="#home1-justified" type="button" role="tab" aria-controls="home" aria-selected="true">Categories without Offer</button>
-                      </li>
-                      <li class="nav-item flex-fill" role="presentation">
-                        <button class="nav-link w-100" id="profile-tab1" data-bs-toggle="tab" data-bs-target="#profile1-justified" type="button" role="tab" aria-controls="profile" aria-selected="false">Categories with Offer</button>
-                      </li>
+      <!-- Default Tabs -->
+      <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
+          <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-justified" type="button" role="tab" aria-controls="home" aria-selected="true">Products without Offer</button>
+          </li>
+          <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-justified" type="button" role="tab" aria-controls="profile" aria-selected="false">Products with Offers</button>
+          </li>
+          
+      </ul>
+      <div class="tab-content pt-2" id="myTabjustifiedContent">
+          <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
+              <table class="table" id="myTable">
+              <input type="text" hidden>
+                
+              <thead class="th-lg-12">
+                  <tr class="text-center bg-white border">
+                  
+                  <th scope="col">Name</th>
+                  <th scope="col">Brand</th>
+                  <th scope="col">Price</th>
+                  
+                  <th scope="col">Image</th>
+                  <th scope="col">Actions</th>
+                  </tr>
+              </thead>
+              {{#each response}}
+              <tbody class="bg-white align-center ">
+                  <tr class="text-center">     
+                  <td>{{this.name}}</td>  
+                  <td>{{this.brand}}</td>
+                  <td>₹ {{this.price}}</td>
+                  
+                  <td><img src="/images/product/{{this.img.[0]}}" style="width:50px ;height: 50px"  alt=""></td>
+                          
+                  <td>
                       
-                    </ul>
-                    <div class="tab-content pt-2" id="myTabjustified1Content">
-                      <div class="tab-pane fade show active" id="home1-justified" role="tabpanel" aria-labelledby="home1-tab">
-                        <table class="table" id="myTable2">
-                            
-                            <thead class="th-lg-12">
-                                <tr class="text-center bg-white border">
-                                <th scope="col">Brand Name</th>                               
-                                <th scope="col">Brand Image</th>
-                                <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            {{#each offerlessCategory}}
-                            <tbody class="bg-white align-center ">
-                                <tr class="text-center">
-                                <td>{{this.brand}}</td>  
-                                <td><img src="/images/product/{{this.img.[0]}}" style="width:50px ;height: 50px"  alt=""></td>    
-                                <td>
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{this._id}}">
-                                    Add Offer
-                                    </button>
-                                </td>
-                                </tr>
-                            </tbody>
-                            {{/each}}
-                            </table> 
-                      </div>
-                      <div class="tab-pane fade" id="profile1-justified" role="tabpanel" aria-labelledby="profile1-tab">
-                          <table class="table" id="myTable3">
-                            
-                            <thead class="th-lg-12">
-                                <tr class="text-center bg-white border">
-                                <th scope="col">Brand Name</th>
-                                <th scope="col">Offer(%)</th>                               
-                                <th scope="col">Brand Image</th>
-                                <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            {{#each offerCategory}}
-                            <tbody class="bg-white align-center ">
-                                <tr class="text-center">
-                                <td>{{this.brand}}</td>
-                                <td>{{this.categoryOffer}}</td>
-                                <td><img src="/images/product/{{this.img.[0]}}" style="width:50px ;height: 50px"  alt=""></td>    
-                                <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editOffer{{this._id}}">Edit Offer</button>   
-                                <a href="/admin/delete-category-offer/{{this.brand}}/{{this._id}}" class="btn btn-outline-danger">Delete Offer</a></td>
-                                </tr>
-                            </tbody>
-                            {{/each}}
-                            </table>
-                      </div>
-                      
-                    </div><!-- End Default Tabs -->
+                      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{this._id}}">
+                      Add Offer
+                      </button>
+                  </td>
+                  
+                  </tr>
+              </tbody>
+              {{/each}}
+              </table>  
+          </div>      
+          <div class="tab-pane fade col-12" id="profile-justified" role="tabpanel" aria-labelledby="profile-tab">
+            <table class="table" id="myTable1">
+              <input type="text" hidden>
 
-                  </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-            Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
-            </div>
-        </div>
-        </div>
-        {{!-- End Vertical Pills Tabs --}}
-
+              <thead class="th-lg-12">
+                  <tr class="text-center bg-white border">
+                  
+                  <th scope="col">Name</th>
+                  <th scope="col">Brand</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Offer(%)</th>
+                  <th scope="col">Price after Offer</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Actions</th>
+                  </tr>
+              </thead>
+              {{#each offerApplied}}
+              <tbody class="bg-white align-center ">
+                  <tr class="text-center">     
+                  <td>{{this.name}}</td>  
+                  <td>{{this.brand}}</td>
+                  <td>₹ {{this.price}}</td>
+                  <td>{{this.productOffer}}</td>
+                  <td>₹ {{this.priceAfterOffer}}</td>
+                  <td><img src="/images/product/{{this.img.[0]}}" style="width:50px ;height: 50px"  alt=""></td>
+                          
+                  <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#EditOffer{{this._id}}">Edit Offer</button>   
+                  <a href="/admin/delete-offer/{{this._id}}" class="btn btn-outline-danger">Delete Offer</a></td>
+                  
+                  </tr>
+              </tbody>
+              {{/each}}
+              </table> 
+          </div>
+      </div><!-- End Default Tabs -->
       </div>
-    </div>
+  </div>
 </main>
 {{#each response}}
 <!-- Modal -->
@@ -231,75 +138,3 @@
 
 {{/each}}
 
-{{#each offerlessCategory}}
-<!-- Modal -->
-<div class="modal fade" id="exampleModal{{this._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="/admin/apply-category-offer" method="post" id="addCategoryoffer">
-      <div class="modal-body">
-        <input type="hidden" name="brand"  value="{{this.brand}}" >
-        <input type="hidden" name="categoryId"  value="{{this._id}}" >
-        <input type="number" style="width: 100%" name="categoryOffer" id="categoryOffer">
-      </div>
-      <div class="modal-footer">
-        {{!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> --}}
-        <button type="submit"  class="btn btn-primary">Save changes</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-{{/each}}
-
-{{#each offerCategory}}
-<!-- Modal -->
-<div class="modal fade" id="editOffer{{this._id}}" tabindex="-1" aria-labelledby="editOfferLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editOfferLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="/admin/edit-category-offer" method="post">
-      <div class="modal-body">
-        <input type="hidden" name="brand"  value="{{this.brand}}" >
-        <input type="hidden" name="categoryId"  value="{{this._id}}" >
-        <input type="number" style="width: 100%" name="categoryOffer" value="{{this.categoryOffer}}" id="categoryOffer">
-      </div>
-      <div class="modal-footer">
-        {{!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> --}}
-        <button type="submit"  class="btn btn-primary">Save changes</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-{{/each}}
-
-<script>
-  
-    /*$("#addCategoryoffer").submit((e)=>{
-      console.log('hi')
-        event.preventDefault();
-        console.log('hi') 
-        $.ajax({
-          url:'/admin/apply-category-offer',
-          type:'POST',
-          data: $("#addCategoryoffer").serialize(),
-          success: (response)=>{
-            if(response.status){
-              console.log('hi')
-              location.reload()
-            }
-          }
-        })
-    });
-  
-</script>

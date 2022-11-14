@@ -27,8 +27,7 @@ module.exports={
     userinfo : (data)=>{
         return new Promise(async(resolve,reject)=>{
            try {
-               let info =await db.get().collection(collection.USER_COLLECTION).find().toArray()
-                  
+               let info =await db.get().collection(collection.USER_COLLECTION).find().toArray()     
                    resolve(info)
            } catch (error) {
               reject(error)
@@ -71,11 +70,7 @@ module.exports={
     addproduct : (productdata)=>{
          return new Promise(async(resolve,reject)=>{
           try {
-            // productdata.productTotal= productdata.price-(productdata.price*productdata.productOffer/100)
-            // console.log(productdata.productTotal);
-            // if(productdata.productOffer=='' || productdata.productOffer==0){
-            //     productdata.productOffer='nil'
-            // }
+            
             productdata.offerApplied=false
               let data =await db.get().collection(collection.PRODUCTS_COLLECTION).insertOne(productdata)
               resolve(data)
@@ -105,12 +100,9 @@ module.exports={
         try {
             if(productdata.img.length==0){
                 let updateddata = await db.get().collection(collection.PRODUCTS_COLLECTION).findOne({_id:objId(id)})
-                console.log(updateddata);
-                console.log('what i want');
                 productdata.img= updateddata.img
             }
-            
-            
+               
             let updatedData = await db.get().collection(collection.PRODUCTS_COLLECTION).updateOne({_id:objId(id)},{$set:
                 {name:productdata.name,
                  brand:productdata.brand,
@@ -119,8 +111,7 @@ module.exports={
                  productDescription1: productdata.productDescription1,
                  productDescription2: productdata.productDescription2,
                  productDescription3: productdata.productDescription3,
-                 productDescription4: productdata.productDescription4,
-                 
+                 productDescription4: productdata.productDescription4,      
                  img: productdata.img
             }})
              resolve(updatedData)   
@@ -240,9 +231,7 @@ module.exports={
             resolve(findOrder)
             console.log(findOrder);
             console.log('findOrder');
-        })
-        
-            
+        })           
         } catch (error) {
             console.log(error);
         }
@@ -252,8 +241,8 @@ module.exports={
         return new Promise ((resolve,reject)=>{
             db.get().collection(collection.ORDER_COLLECTION).findOne({_id: objId(orderId)}).then((response)=>{
                 resolve(response)
-            }).catch((err)=>{
-                reject(err)
+            }).catch((error)=>{
+                reject(error)
             })
         })
     },
@@ -368,24 +357,19 @@ module.exports={
                 let findOrder=await db.get().collection(collection.ORDER_COLLECTION).findOne({$and:[{_id:objId(body.orderId)},{'products.item':objId(body.productId)}]})
                  body.quantity=parseInt(body.quantity)
                  if(findOrder){
-                      // let pullProduct = {
-                      //     item:objId(body.productId),
-                      //     quantity:body.quantity,
-                      //     productStatus: 'cancelled'
-                      // }
-                      // console.log(pullProduct);
+                     
                       db.get().collection(collection.ORDER_COLLECTION).updateOne({$and:[{_id:objId(body.orderId)},{'products.item':objId(body.productId)}]},{$set:{'products.$.productStatus':'cancelled'}}).then((response)=>{
                       
                       resolve(response)
-                      }).catch((err)=>{
-                        reject(err)
+                      }).catch((error)=>{
+                        reject(error)
                       })
                     
                    }else{
                      resolve()
                    }
-            }catch(err){
-                reject(err)
+            }catch(error){
+                reject(error)
             }
         })
     },
@@ -487,9 +471,6 @@ module.exports={
                         }
                     }
                 ]).toArray()
-                console.log('---------------------------');
-                console.log(weeklySales,monthlySales,yearlySales);
-                console.log('---------------------------');
                 resolve({weeklySales,monthlySales,yearlySales})
             } catch (error) {
                reject(error)
@@ -503,22 +484,20 @@ module.exports={
                
                 {$match:{status:'Order Placed'}},
                 {$group:{_id:'$paymentMethod',count:{$sum:1}}},
-                // {$group:{_id:"$_id.Payment",Count:{$sum:1}}}
+                
             ]).toArray().then((payment)=>{
-                console.log(payment);
-                console.log('////////////////');
                 resolve(payment)
-            }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
-        })
+      })
     },
 
     changeStatus : (body)=>{
 
         return new Promise (async(resolve,reject)=>{
             try {
-                let changeStatus =await db.get().collection(collection.ORDER_COLLECTION).updateOne({$and:[{_id:objId(body.orderId)},{'products.item': objId(body.productId)}]},{$set:{'products.$.productStatus':body.productStatus}})
+                let changeStatus =await db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objId(body.orderId)},{$set:{status:body.orderStatus}})
                console.log(changeStatus);
                resolve(changeStatus)
             
@@ -762,8 +741,8 @@ module.exports={
         db.get().collection(collection.PRODUCTS_COLLECTION).find({offerApplied:false}).toArray().then((data)=>{
             console.log(data);
             resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -786,8 +765,8 @@ module.exports={
         db.get().collection(collection.CATEGORY_COLLECTION).find({offerApplied:false}).toArray().then((data)=>{
             console.log(data);
             resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -806,8 +785,8 @@ module.exports={
         db.get().collection(collection.PRODUCTS_COLLECTION).updateOne({_id: objId(body.productId)},{$set:{offerApplied:true,productOffer:body.productOffer}}).then((data)=>{
             console.log(data);
             resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -820,8 +799,8 @@ module.exports={
             db.get().collection(collection.PRODUCTS_COLLECTION).updateMany({brand:body.brand},{$set:{categoryOffer:body.categoryOffer}}).then((response)=>{
                 resolve(data)
             })
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -832,8 +811,8 @@ module.exports={
         db.get().collection(collection.PRODUCTS_COLLECTION).updateOne({_id: objId(body.productId)},{$set:{productOffer:body.productOffer}}).then((data)=>{
             console.log(data);
             resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -845,8 +824,8 @@ module.exports={
                 resolve(data)
             })
 
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -856,8 +835,8 @@ module.exports={
         db.get().collection(collection.PRODUCTS_COLLECTION).updateOne({_id: objId(productId)},{$unset:{productOffer:1},$set:{offerApplied:false}}).then((data)=>{
             console.log(data);
             resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -877,8 +856,8 @@ module.exports={
     return new Promise((resolve,reject)=>{
         db.get().collection(collection.COUPON_COLLECTION).insertOne(body).then((data)=>{
           resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -894,8 +873,8 @@ module.exports={
                 date:body.date
             }}).then((data)=>{
           resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -905,8 +884,8 @@ module.exports={
     return new Promise((resolve,reject)=>{
         db.get().collection(collection.COUPON_COLLECTION).deleteOne({_id: objId(couponId)}).then((data)=>{
           resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -916,8 +895,8 @@ module.exports={
     return new Promise((resolve,reject)=>{
         db.get().collection(collection.COUPON_COLLECTION).find().toArray().then((data)=>{
           resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -951,8 +930,8 @@ getBanner: ()=>{
     return new Promise((resolve,reject)=>{
         db.get().collection(collection.BANNER_COLLECTION).find().toArray().then((data)=>{
           resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },
@@ -984,8 +963,8 @@ deleteBanner : (bannerId)=>{
     return new Promise((resolve,reject)=>{
         db.get().collection(collection.BANNER_COLLECTION).deleteOne({_id: objId(bannerId)}).then((data)=>{
           resolve(data)
-        }).catch((err)=>{
-            reject(err)
+        }).catch((error)=>{
+            reject(error)
         })
     })
   },

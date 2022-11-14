@@ -13,9 +13,8 @@ module.exports={
         if(req.session.loggedIn){
             return next()
         }else{
-            userhelpers.findCategory().then((response)=>{
-              res.render('./user/user-home',{title:true,userheader:true,response});
-            })
+            
+              res.render('user/user-login');
         }
     },
 

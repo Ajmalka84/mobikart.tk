@@ -37,7 +37,8 @@
 								<th>Order Total</th>
 								<th>Order Id</th>
 								<th>Status</th>
-								<th> </th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 
@@ -60,13 +61,34 @@
 								{{#if this.priceAfterCoupondiscount}}
 								<td>₹{{this.priceAfterCoupondiscount}}</td>
 								{{else}}
-								<td>{{this.total}}</td>
+								<td>₹{{this.total}}</td>
 								{{/if}}
                                 <td>{{this._id}}</td>
                                 <td>{{this.status}}</td>
-								
+								{{#if this.tempstatus}}
 								<td class="remove-col">
-								<a href="/viewdetails/{{this._id}}"><button type="submit" class="btn btn-outline-danger ">View Details</button></a></td>
+								<button type="button" class="btn-md btn-outline-warning ">Return</button></td>
+								<td>
+								<a href="/viewdetails/{{this._id}}"><button type="submit" class="btn-md btn-outline-primary">Details</button></a>
+								</td>	
+								{{/if}}
+								{{#if this.cancelstatus}}
+								<td class="remove-col">
+								<button type="button"  class="btn-md btn-outline-danger " disabled>Cancel</button></td>
+								<td>
+								<a href="/viewdetails/{{this._id}}"><button type="submit" class="btn-md btn-outline-primary">Details</button></a>
+								</td>	
+								{{/if}}
+								{{#if this.otherstatus}}
+								<td class="remove-col">
+								<button type="button" onclick="cancelOrder('{{this._id}}')" class="btn-md btn-outline-danger ">Cancel</button></td>
+								<td>
+								<a href="/viewdetails/{{this._id}}"><button type="submit" class="btn-md btn-outline-primary">Details</button></a>
+								</td>	
+								{{/if}}
+								
+								
+								
 							</tr>
                             {{/each}}
 						</tbody>
@@ -97,7 +119,23 @@
 
   for (var i = 1, len = rows.length; i < len; i++) {
     rows[i].children[0][text] = i;
-  }
+}
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+<script>
+	function cancelOrder(orderId){
+      console.log('hoo')
+		$.ajax({
+			url: '/cancelOrder',
+			data:{
+				orderId : orderId
+			},
+			type: 'POST',
+			success : (response)=>{
+				window.location.reload()
+			}
+		})
+	} 
+</script>
