@@ -26,7 +26,7 @@ module.exports={
            userhelpers.getHotDealsProducts().then((hotDeals)=>{
             userhelpers.getHighDemandProducts().then((highDemand)=>{
 
-              res.render('user/user-home',{title:true,userheader:true,response,banners,cartCount,wishlist,hotDeals,highDemand})
+              res.render('user/user-home',{title:req.session.user,userheader:true,response,banners,cartCount,wishlist,hotDeals,highDemand})
             }).catch((error)=>{
               console.log(error);
               throw error;
