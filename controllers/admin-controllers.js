@@ -7,7 +7,7 @@ module.exports={
     adminhelpers.bringGraph().then((response)=>{
       adminhelpers.paymentGraph().then((paymentGraph)=>{
         const {weeklySales, monthlySales, yearlySales}=response;
-        console.log(paymentGraph[0].count)
+        
         res.render('./admin/admin-home',{adminheader:true,adminlink:true,weeklySales,monthlySales,yearlySales,paymentGraph})
       }).catch((error)=>{
         console.log(error);
