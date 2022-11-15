@@ -7,8 +7,14 @@ module.exports={
     adminhelpers.bringGraph().then((response)=>{
       adminhelpers.paymentGraph().then((paymentGraph)=>{
         const {weeklySales, monthlySales, yearlySales}=response;
-        
-        res.render('./admin/admin-home',{adminheader:true,adminlink:true,weeklySales,monthlySales,yearlySales,paymentGraph})
+        adminhelpers.salesToday().then((salesToday)=>{
+        adminhelpers.numberofUsers().then((users)=>{
+         adminhelpers.last5orders().then((lastfive)=>{
+
+           res.render('./admin/admin-home',{adminheader:true,adminlink:true,weeklySales,monthlySales,yearlySales,paymentGraph,salesToday,users,lastfive})
+         })
+        })
+        })
       }).catch((error)=>{
         console.log(error);
         throw error;

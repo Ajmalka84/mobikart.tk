@@ -903,6 +903,22 @@ placeOrder :(userId,productId,body,total,couponDiscount)=>{
           }
         })
     },
+
+    findOrderforPayment : (orderId)=>{   
+        return new Promise(async(resolve,reject)=>{
+            try {
+                
+                    db.get().collection(collection.ORDER_COLLECTION).findOne({_id: objId(orderId)}).then((data)=>{
+                        resolve(data)
+                      
+                  }).catch((error)=>{
+                    reject(error)
+               })
+            } catch (error) {
+                reject(error)
+              }
+            })
+        },
     
     deleteCart:(userId)=>{
         return new Promise ((resolve,reject)=>{
@@ -1562,6 +1578,25 @@ placeOrder :(userId,productId,body,total,couponDiscount)=>{
         return new Promise ((resolve,reject)=>{
             try {
                 db.get().collection(collection.PRODUCTS_COLLECTION).find({name : {$regex: new RegExp(searchData+'.*','i')}}).limit(5).toArray().then((response)=>{                   
+                        resolve(response)  
+                        console.log(response);
+                        console.log('==============');           
+                }).catch((error)=>{
+                    reject(error)
+                })
+            
+            } catch (error) {
+              reject(error)
+            } 
+          })
+    },
+
+    brandwiseproduct : (body)=>{
+        console.log(body);
+        console.log('body');
+        return new Promise ((resolve,reject)=>{
+            try {
+                db.get().collection(collection.PRODUCTS_COLLECTION).find({brand: body}).toArray().then((response)=>{                   
                         resolve(response)  
                         console.log(response);
                         console.log('==============');           

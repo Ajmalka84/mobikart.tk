@@ -34,7 +34,7 @@ module.exports={
            }).catch((error)=>{
             console.log(error);
             throw error;
-          }) 
+          })
           }).catch((error)=>{
             console.log(error);
             throw error;
@@ -43,9 +43,8 @@ module.exports={
           console.log(error);
           throw error;
         })
-        })
+      })
       }else{
-
         userhelpers.getBanner().then((banners)=>{
           userhelpers.findCategory().then((response)=>{  
            userhelpers.getHotDealsProducts().then((hotDeals)=>{
@@ -659,6 +658,82 @@ module.exports={
           console.log(error);
         }
       },
+
+      rePlaceOrder : async(req,res)=>{
+        try {
+      
+          if (req.session.loggedIn){    
+                  userhelpers.findOrderforPayment(req.params.id).then(async(orderId)=>{
+                    if(orderId.paymentMethod==='COD'){
+                      res.json({codSuccess:true})
+                    }else if(orderId.paymentMethod==='razorpay'){
+
+                      userhelpers.generateRazorpay(orderId,orderId.total).then((order)=>{
+                        res.json({order,razor:true})
+                      }).catch((error)=>{
+                        console.log(error);
+                    })
+                  }else if (orderId.paymentMethod==='paypal'){
+                    req.session.orderId=orderId
+                    console.log('its entering...............');
+                    paypal.configure({
+                      'mode': 'sandbox', //sandbox or live
+                      'client_id': 'Ae7Efp4PbxNQOrfOn43BQyHmQnhl9Mw5SUz2FWH1W9aIfDnw-aCsts6R-tA3TU1cy5PaZ8XXiuNPNRjP',
+                      'client_secret': 'ED-6PSgdN1XbZnVMJzXvFHh5K7q444TPNm6MOAW9i6ECxuIgud7BQciYxTTT6qPbhqU2xBS1O6XlhtQo'
+                    });
+                    
+                    const create_payment_json = {
+                      "intent": "sale",
+                      "payer": {
+                        "payment_method": "paypal"
+                      },
+                      "redirect_urls": {
+                                "return_url": "http://localhost:3000/success",
+                                "cancel_url": "http://localhost:3000/cancel"
+                              },
+                              "transactions": [{
+                                "item_list": {
+                                    "items": [{
+                                      "name": "Red Sox Hat",
+                                      "sku": "001",
+                                      "price": "5.00",
+                                      "currency": "USD",
+                                      "quantity": 1
+                                    }]
+                                    },
+                                    "amount": {
+                                  "currency": "USD",
+                                  "total": "5.00"
+                                },
+                                "description": "Hat for the best team ever"
+                              }]
+                            };
+                         
+                        paypal.payment.create(create_payment_json, function  (error, payment) {
+                          if (error) {
+                            throw error;
+                          } else {
+                            for(let i = 0;i < payment.links.length;i++){
+                                if(payment.links[i].rel === 'approval_url'){
+                                  console.log(payment);
+                                  res.json(payment.links[i].href);
+                                }
+                              } 
+                            }
+                          });  
+                        }
+                                      
+                      }).catch((error)=>{
+                        console.log(error);
+                      })
+              
+          } else {
+            res.redirect('/')
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
       
       getSummary : (req,res)=>{
         
@@ -843,9 +918,12 @@ module.exports={
                 }else
                 if(element.status==='cancelled'){
                   element.cancelstatus=true
-                  }else{
-                    element.otherstatus=true
-                    
+                  }
+                  // else if (element.status==='Order Pending'){
+                  //   element.pendingstatus = true
+                  // }
+                  else{
+                    element.otherstatus=true     
                   }
             });
             console.log(response);
@@ -1039,6 +1117,10 @@ module.exports={
         try {
           
           if(req.session.loggedIn){
+            console.log('////////');
+          console.log(req.body);
+          req.session.brand= req.body
+          console.log('////////');
             // pagination
             const page = parseInt(req.query.page) 
               const limit =5
@@ -1073,10 +1155,13 @@ module.exports={
               console.log(response);
             
               // pagination
-            
+              let brand = req.session.brand.brand
+              console.log(req.session);
+              console.log('////////');
+              console.log(brand);
               userhelpers.bringCategory().then((category)=>{ 
               userhelpers.wishlistCount(req.session.user._id).then((wishlist)=>{ 
-              res.render('user/products-list',{userheader:true,response,title:true,cartCount,wishlist,results,category})
+              res.render('user/products-list',{userheader:true,response,title:true,cartCount,wishlist,results,category,brand})
             }).catch((error)=>{
               console.log(error);
               throw error;
@@ -1096,6 +1181,26 @@ module.exports={
         } catch (error) {
           console.log(error);
         } 
+      },
+      
+      brandwiseproduct : (req, res)=>{
+        try {
+          console.log(req.params);
+          console.log('params');
+          userhelpers.bringCategory().then((category)=>{
+            userhelpers.brandwiseproduct(req.params.brand).then((response)=>{
+              res.render('user/products-list',{title:true,userheader:true,response,category});
+            }).catch((error)=>{
+              console.log(error);
+              throw error;
+            })
+          }).catch((error)=>{
+            console.log(error);
+            throw error;
+          })
+        } catch (error) {
+          console.log(error);
+        }
       },
 
       productSearch : async (req, res)=>{

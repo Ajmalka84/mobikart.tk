@@ -465,16 +465,11 @@
                         style: 'display:none',
                         download: 'data.csv'
                     })
-
                     document.body.appendChild(a)
-
                     a.click()
-
                     URL.revokeObjectURL(href)
-
                     a.remove()
                 }
-
                 function monthlyData() {
                     const data =`
                           ,date,Total,no.of Order

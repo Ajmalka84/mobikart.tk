@@ -128,8 +128,6 @@
                 					<a href="/products-list/?page=1" class="sidebar-filter-clear">Clean All</a>
                 				</div><!-- End .widget widget-clean -->
 
-                				
-
         						<div class="widget widget-collapsible">
     								<h3 class="widget-title">
 									    <a data-toggle="collapse" href="" role="button" aria-expanded="true" aria-controls="widget-4">
@@ -141,22 +139,29 @@
 										<div class="widget-body">
 											<div class="filter-items">
 												<form action="/filter" method="post">
-												{{#each category}}
+												  {{#each category}}
 												<div class="filter-item">
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="{{this._id}}" name="brand" value="{{this.brand}}">
+														
+														<input type="checkbox" class="custom-control-input" id="{{this._id}}" name="brand" value="{{this.brand}}"
+														
+														{{#brandFilterCheckBox ../brand this.brand}}
+														checked
+														{{else}}
+														{{/brandFilterCheckBox}}
+														
+														>
 														<label class="custom-control-label" for="{{this._id}}">{{this.brand}}</label>
 													</div><!-- End .custom-checkbox -->
 												</div><!-- End .filter-item -->
-                                                 {{/each}}
+												
+                                                  {{/each}}
 										          <button type="submit" class="btn-md btn-outline-primary mt-2">Apply Filter</button>
 												 </form>
 											</div><!-- End .filter-items -->
 										</div><!-- End .widget-body -->
 									</div><!-- End .collapse -->
-        						</div><!-- End .widget -->
-
-        						
+        						</div><!-- End .widget -->        						
                 			</div><!-- End .sidebar sidebar-shop -->
                 		</aside><!-- End .col-lg-3 -->
                 	</div><!-- End .row -->

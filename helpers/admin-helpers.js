@@ -236,6 +236,46 @@ module.exports={
             console.log(error);
         }
     },
+    
+    last5orders : ()=>{
+        try {
+            
+            return new Promise(async(resolve,reject)=>{
+               
+            let findOrder =await  db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                
+                {
+                    $addFields: { 
+                        
+                        priceAfterCoupondiscount:{
+                            $cond : {
+                                if: {
+                                    $gte: [{$toInt: '$total'},{$toInt:'$couponDiscount'}]
+                                },
+                                then : {$subtract: ['$total','$couponDiscount'] },
+                                else:  {$subtract: ['$total','$couponDiscount'] },
+                            }
+                        },
+                        
+                     } 
+                 },
+                 {
+                    $limit:5
+                 },
+                 {
+                    $sort :{'date':-1 }
+                 }
+            ])
+            .toArray()
+            resolve(findOrder)
+            console.log(findOrder);
+            console.log('findOrder');
+        })           
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
 
     findOrder : (orderId)=>{
         return new Promise ((resolve,reject)=>{
@@ -487,6 +527,42 @@ module.exports={
                 
             ]).toArray().then((payment)=>{
                 resolve(payment)
+        }).catch((error)=>{
+            reject(error)
+        })
+      })
+    },
+
+    salesToday : ()=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ORDER_COLLECTION).aggregate([
+               
+                {$match:{status:'Order Placed'}},
+                {$group:{_id:'$date',count:{$sum:1},sales: {$sum:'$total'} }},
+                {$sort:{_id:-1}}
+                
+            ]).toArray().then((payment)=>{
+                resolve(payment)
+                console.log(payment);
+                console.log('=====payment======');
+        }).catch((error)=>{
+            reject(error)
+        })
+      })
+    },
+
+    numberofUsers : ()=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.USER_COLLECTION).aggregate([
+               
+                {$match:{status:'true'}},
+                {$group:{_id:'$status',count:{$sum:1} }},
+               
+                
+            ]).toArray().then((payment)=>{
+                resolve(payment)
+                console.log(payment);
+                console.log('=====payment======');
         }).catch((error)=>{
             reject(error)
         })

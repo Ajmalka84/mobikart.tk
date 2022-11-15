@@ -79,6 +79,13 @@
 								<a href="/viewdetails/{{this._id}}"><button type="submit" class="btn-md btn-outline-primary">Details</button></a>
 								</td>	
 								{{/if}}
+								{{!-- {{#if this.pendingstatus}}
+								<td class="remove-col">
+								<button type="button" onclick="finishOrder('{{this._id}}')"  class="btn-md btn-outline-success ">Finish</button></td>
+								<td>
+								<a href="/viewdetails/{{this._id}}"><button type="submit" class="btn-md btn-outline-primary">Details</button></a>
+								</td>	
+								{{/if}} --}}
 								{{#if this.otherstatus}}
 								<td class="remove-col">
 								<button type="button" onclick="cancelOrder('{{this._id}}')" class="btn-md btn-outline-danger ">Cancel</button></td>
@@ -138,4 +145,15 @@
 			}
 		})
 	} 
+
+	//function finishOrder(OrderId){
+	//	console.log(OrderId)
+	//	$.ajax({
+	//		url : '/replace-order/'+OrderId,
+	//		method : 'get',
+    //        success : (response)=>{
+	//			location.href=response
+	//		}
+	//	})
+	// }
 </script>

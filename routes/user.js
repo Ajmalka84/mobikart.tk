@@ -21,6 +21,7 @@ router.get('/logout',controllers.userLogout)
 router.get('/products-list',middlewares.userSessionManagement,controllers.userProductList)
 router.get('/product-details/:id',middlewares.userSessionManagement,controllers.userProductDetails) 
 router.post('/filter',middlewares.userSessionManagement,controllers.filter)
+router.get('/products-list/:brand',middlewares.userSessionManagement,controllers.brandwiseproduct) 
 
 // cart 
 router.get('/cart/:id',middlewares.userSessionManagement,controllers.userAjaxCart)
@@ -55,6 +56,8 @@ router.delete('/deleteAddress/:id',middlewares.userSessionManagement,controllers
 router.get('/orderhistory',middlewares.userSessionManagement,controllers.userOrderHistory)
 router.post('/cancelOrder',middlewares.userSessionManagement,controllers.userCancelOrder)
 router.get('/viewdetails/:id',middlewares.userSessionManagement,controllers.OrderDetails)
+router.get('/replace-order/:id',middlewares.userSessionManagement,controllers.rePlaceOrder)
+
 
 // coupon 
 router.get('/coupons',middlewares.userSessionManagement,controllers.coupons)    
@@ -74,16 +77,6 @@ router.post('/wishlist/removeProduct',middlewares.userSessionManagement,controll
 router.get('/remove-wishlist/:id',middlewares.userSessionManagement,controllers.removeWishlist);
 
 module.exports = router;
-
-
-
-
-
-
-
-
-// router.post('/checkout/addAddress',controllers.userPostCheckoutAddress)
-// router.get('/userAddress',controllers.userProfileAddAddress)
 
 
 

@@ -45,8 +45,28 @@ const hbs=expbs.create({
           }
           return options.inverse();   
         }
-      }
-    }
+      },
+
+      brandFilterCheckBox:(brandArray,brandId,options)=>{
+        if(brandArray){
+          function doesAnyBrandIdMatch(element){
+            return brandId==element
+          }
+          if(brandArray.some(doesAnyBrandIdMatch)){
+            return options.fn()
+          }else{
+            return options.inverse();   
+          }
+        }
+        else{
+          return options.inverse();   
+        }	
+      },
+
+      
+    },
+    
+   
   })
   
 app.engine('hbs', hbs.engine)
