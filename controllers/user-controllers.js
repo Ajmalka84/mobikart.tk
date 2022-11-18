@@ -642,8 +642,8 @@ module.exports={
                         "payment_method": "paypal"
                       },
                       "redirect_urls": {
-                                "return_url": "http://localhost:3000/success",
-                                "cancel_url": "http://localhost:3000/cancel"
+                                "return_url": "http://mobikart.tk/success",
+                                "cancel_url": "http://mobikart.tk/cancel"
                               },
                               "transactions": [{
                                 "item_list": {
