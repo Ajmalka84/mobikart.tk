@@ -72,8 +72,12 @@
 												   {{this.productDescription3}}
 												   <br>
 												   {{this.productDescription4}} <br>
+												{{#if this.stockstatus}}
 												<button id="addtocart" class="btn btn-outline-success mt-2" onclick="cartManage('{{this._id}}')">Add to Cart</button>
-                                                </div><!-- End .product-content -->
+												{{else}}
+                                                <button id="addtocart" class="btn btn-outline-danger mt-2" onclick="cartManage('{{this._id}}')" disabled>No Stock</button>
+												{{/if}}
+												</div><!-- End .product-content -->
                                                 {{!-- <div class="pb-2"> --}}
 												{{!-- </div> --}}
                                             </div><!-- End .product-body -->

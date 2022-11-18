@@ -24,8 +24,21 @@ module.exports={
         userhelpers.getBanner().then((banners)=>{
           userhelpers.findCategory().then((response)=>{  
            userhelpers.getHotDealsProducts().then((hotDeals)=>{
+            hotDeals.forEach(element => {
+              if(element.stock==='0'){
+               element.stockstatus=false
+              }else{
+               element.stockstatus=true
+                }
+              });
             userhelpers.getHighDemandProducts().then((highDemand)=>{
-
+              highDemand.forEach(element => {
+                if(element.stock==='0'){
+                 element.stockstatus=false
+                }else{
+                 element.stockstatus=true
+                  }
+                });
               res.render('user/user-home',{title:req.session.user,userheader:true,response,banners,cartCount,wishlist,hotDeals,highDemand})
             }).catch((error)=>{
               console.log(error);
@@ -251,7 +264,13 @@ module.exports={
               results.pageCount =Math.ceil(parseInt(productsCount)/parseInt(limit)).toString() 
               results.pages =Array.from({length: results.pageCount}, (_, i) => i + 1)    
               results.currentPage =page.toString()
-  
+              response.forEach(element => {
+                if(element.stock==='0'){
+              element.stockstatus=false
+            }else{
+              element.stockstatus=true
+            }
+          });
               console.log(results);
               console.log(response);
               
@@ -284,6 +303,13 @@ module.exports={
         try {
           if (req.session.loggedIn) {
             userhelpers.productinfo(req.params.id).then((response)=>{
+              response.forEach(element => {
+                if(element.stock==='0'){
+              element.stockstatus=false
+            }else{
+              element.stockstatus=true
+            }
+          });
               userhelpers.getProducts(response[0]._id).then((products)=>{
                 res.render('user/product-details',{userheader:true,response,products,title:true,cartCount})
                 console.log(products);
@@ -321,6 +347,17 @@ module.exports={
             }else{
               
               userhelpers.getCart(req.session.user._id).then((response)=>{
+                response.forEach(element => {
+                  if(element.productTotal === null){
+                element.productTotal= element.products.price* element.quantity
+              } 
+                 if(element.priceAfterdiscount === null ){
+                  element.priceAfterdiscount= element.products.price
+                 }
+              
+            });
+                console.log(response);
+                console.log('=========getCart=========');
                 userhelpers.cartTotal(req.session.user._id).then((grandtotal)=>{
                   if(grandtotal[0].grandtotal == 0){
                     res.render('user/cart',{userheader:true,title:true,response,cartCount})
@@ -913,9 +950,9 @@ module.exports={
           if(req.session.loggedIn){
               userhelpers.findOrderforOrderHistory(req.session.user._id).then((response)=>{
                 response.forEach(element => {
-                  if(element.status==='delivered'){
-                element.tempstatus=true
-                }else
+                //   if(element.status==='delivered'){
+                // element.tempstatus=true
+                // }else
                 if(element.status==='cancelled'){
                   element.cancelstatus=true
                   }
@@ -1071,6 +1108,15 @@ module.exports={
         try {
           userhelpers.wishlistCount(req.session.user._id).then((wishlist)=>{
             userhelpers.bringWishlistProducts(req.session.user._id).then((response)=>{
+              response.forEach(element => {
+                if(element.stock==='0'){
+              element.stockstatus=false
+            }else{
+              element.stockstatus=true
+            }
+          });
+
+          console.log(response);
             res.render('user/wishlist',{userheader:true,title:true,response,wishlist,cartCount});
           }).catch((error)=>{
             console.log(error);
@@ -1189,6 +1235,13 @@ module.exports={
           console.log('params');
           userhelpers.bringCategory().then((category)=>{
             userhelpers.brandwiseproduct(req.params.brand).then((response)=>{
+              response.forEach(element => {
+                if(element.stock==='0'){
+              element.stockstatus=false
+            }else{
+              element.stockstatus=true
+            }
+          });
               res.render('user/products-list',{title:true,userheader:true,response,category});
             }).catch((error)=>{
               console.log(error);

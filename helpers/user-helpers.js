@@ -452,7 +452,7 @@ getCart : (userId)=>{
                      $addFields: {
                        productTotal: {
                           $multiply:[ '$priceAfterdiscount','$quantity']
-                       }       
+                       }     
                       }  
                     },                          
                 ]).toArray() 
@@ -616,9 +616,15 @@ getCart : (userId)=>{
                        },
                        {
                         $addFields: {
-                          productTotal: {
-                             $multiply:[ '$priceAfterdiscount','$quantity']
-                          }       
+                            productTotal:{
+                                $cond : {
+                                    if: {
+                                        $eq: ['$priceAfterdiscount',null]
+                                    },
+                                    then :{$multiply:[{$toInt: '$products.price'},'$quantity'] },
+                                    else:  { $multiply:[ '$priceAfterdiscount','$quantity']}       ,
+                                }
+                            },
                          }  
                        },
                        {
@@ -627,20 +633,17 @@ getCart : (userId)=>{
                             grandtotal: {$sum : '$productTotal'},cpn :{$push :'$couponAmount'}
                             
                           }
-                       }, 
+                       },
                        {
                         $project:{
-                            grandtotal:1,cpn:{$arrayElemAt:['$cpn',0]}           
+                            grandtotal:1,cpn:{$arrayElemAt:['$cpn',0]}   
                         }
                        },
                        {
                         $project:{
-                            grandtotal:1,cpn:1, priceaftercpndiscount: {$subtract:['$grandtotal','$cpn']}   
+                            grandtotal:1,cpn:1, priceaftercpndiscount: {$subtract:['$grandtotal','$cpn']}
                         }
                        }
-
-                      
-
                    ]).toArray()
                    resolve(grandtotal)
 
@@ -850,6 +853,7 @@ findCart: (userId)=>{
        try {
                 let cart= await  db.get().collection(collection.CART_COLLECTION).findOne({user:objId(userId)})
                 resolve(cart.products)
+               
        } catch (error) {
            reject(error)
        }
@@ -891,8 +895,9 @@ placeOrder :(userId,productId,body,total,couponDiscount)=>{
                   paymentMethod:body.paymentOptions,
                   status: status
                 }
-              
-                db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((data)=>{
+                
+                db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then(async(data)=>{
+                 
                     resolve(data.insertedId)
                   
               }).catch((error)=>{

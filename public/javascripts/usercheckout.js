@@ -13,7 +13,7 @@ $("#checkout-form").submit((e)=>{
                 
             }else{
                 if(response.codSuccess){
-                 alert('success')
+                 
                  location.href='/orderSummary'		
                }else if(response.razor){
                  razorpayPayment(response.order)

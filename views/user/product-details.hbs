@@ -94,7 +94,11 @@
                                                 <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
                                             </div><!-- End .product-details-quantity -->
 
-                                            <a href="#" class="btn-product btn-cart m-3"><span>add to cart</span></a>
+                                            {{#if this.stockstatus}}
+                                            <button id="addtocart" class="btn btn-outline-success" onclick="cartManage('{{this._id}}')">Add to Cart</button>
+                                            {{else}}
+                                            <button id="addtocart" class="btn btn-outline-danger" onclick="cartManage('{{this._id}}')" disabled>No Stock</button>
+                                            {{/if}}
                                         </div><!-- End .details-action-col -->      
                                     </div><!-- End .product-details-action -->
 

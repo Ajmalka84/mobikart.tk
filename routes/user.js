@@ -6,7 +6,7 @@ var router = express.Router();
 let controllers = require('../controllers/user-controllers')
 
 /* GET home page. */ 
-router.get('/',controllers.userHome);
+router.get('/',controllers.userHome)
 router.post('/getFruits',middlewares.userSessionManagement,controllers.productSearch)
 router.get('/login',controllers.userLogin)
 router.post('/login',controllers.userPostLogin)

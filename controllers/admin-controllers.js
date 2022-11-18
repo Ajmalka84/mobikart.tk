@@ -10,7 +10,8 @@ module.exports={
         adminhelpers.salesToday().then((salesToday)=>{
         adminhelpers.numberofUsers().then((users)=>{
          adminhelpers.last5orders().then((lastfive)=>{
-
+           console.log(paymentGraph);
+           console.log('paymentGraph');
            res.render('./admin/admin-home',{adminheader:true,adminlink:true,weeklySales,monthlySales,yearlySales,paymentGraph,salesToday,users,lastfive})
          })
         })
