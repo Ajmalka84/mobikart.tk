@@ -336,14 +336,15 @@ module.exports={
       },
       
              
-      userCart : async(req,res)=>{
+      userCart : (req,res)=>{
         try {
       
           if(req.session.loggedIn){
+            userhelpers.wishlistCount(req.session.user._id).then(async(wishlist)=>{
             cartCount = await userhelpers.cartCount(req.session.user._id)
             console.log(cartCount);    
             if(cartCount== 0 || cartCount==undefined || cartCount== null){
-              res.render('user/cart',{userheader:true,title:true})
+              res.render('user/cart',{userheader:true,title:true,wishlist})
             }else{
               
               userhelpers.getCart(req.session.user._id).then((response)=>{
@@ -356,14 +357,13 @@ module.exports={
                  }
               
             });
-                console.log(response);
-                console.log('=========getCart=========');
+                
                 userhelpers.cartTotal(req.session.user._id).then((grandtotal)=>{
                   if(grandtotal[0].grandtotal == 0){
-                    res.render('user/cart',{userheader:true,title:true,response,cartCount})
+                    res.render('user/cart',{userheader:true,title:true,response,cartCount,wishlist})
                   }
                     else{
-                    res.render('user/cart',{userheader:true,title:true,response,cartCount,grandtotal})
+                    res.render('user/cart',{userheader:true,title:true,response,cartCount,grandtotal,wishlist})
                   }
                 }).catch((error)=>{
                   console.log(error);
@@ -374,9 +374,11 @@ module.exports={
                 throw error;
               })
             }
+          })
           }else{
             res.redirect('/login')
           }
+        
         } catch (error) {
           console.log(error);
         }
