@@ -200,6 +200,97 @@ module.exports={
           }
         })
     },
+    returnOrders : ()=>{
+        return new Promise ((resolve,reject)=>{
+          try {
+              let returnRequestFind = db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                   $match: {
+                     returnRequest:'pending'
+                   }
+                },
+                {
+                    $addFields: { 
+                        
+                        priceAfterCoupondiscount:{
+                            $cond : {
+                                if: {
+                                    $gte: [{$toInt: '$total'},{$toInt:'$couponDiscount'}]
+                                },
+                                then : {$subtract: ['$total','$couponDiscount'] },
+                                else:  {$subtract: ['$total','$couponDiscount'] },
+                            }
+                        },
+                        
+                     } 
+                 }  
+            ])
+            .toArray()
+              resolve(returnRequestFind)
+            
+          } catch (error) {
+             reject(error)
+          }
+        })
+    },
+
+    returnOrders2 : ()=>{
+        return new Promise ((resolve,reject)=>{
+          try {
+              let returnRequestFind = db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                   $match: {
+                     returnRequest:'approved'
+                   }
+                },
+                {
+                    $addFields: { 
+                        
+                        priceAfterCoupondiscount:{
+                            $cond : {
+                                if: {
+                                    $gte: [{$toInt: '$total'},{$toInt:'$couponDiscount'}]
+                                },
+                                then : {$subtract: ['$total','$couponDiscount'] },
+                                else:  {$subtract: ['$total','$couponDiscount'] },
+                            }
+                        },
+                        
+                     } 
+                 }  
+            ])
+            .toArray()
+              resolve(returnRequestFind)
+            
+          } catch (error) {
+             reject(error)
+          }
+        })
+    },
+
+    approveRequest : (orderId)=>{
+        return new Promise ((resolve,reject)=>{
+          try {
+              let categoryFind = db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objId(orderId)},{$set: {returnRequest : 'approved',status: 'return approved'}})
+              resolve(categoryFind)
+            
+          } catch (error) {
+             reject(error)
+          }
+        })
+    },
+
+    rejectRequest :  (orderId)=>{
+        return new Promise ((resolve,reject)=>{
+          try {
+              let categoryFind = db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objId(orderId)},{$set: {returnRequest : 'rejected',status: 'return rejected'}})
+              resolve(categoryFind)
+            
+          } catch (error) {
+             reject(error)
+          }
+        })
+    },
 
     fullOrder : (userId)=>{
         try {

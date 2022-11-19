@@ -1,0 +1,113 @@
+<main class="main" id="main">
+  <div class="card">
+      <div class="card-body">
+      <h5 class="card-title">Product offerManagement</h5>
+
+      <!-- Default Tabs -->
+      <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
+          <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-justified" type="button" role="tab" aria-controls="home" aria-selected="true">Return Requests for Approval</button>
+          </li>
+          <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-justified" type="button" role="tab" aria-controls="profile" aria-selected="false">Return Requests for Approved </button>
+          </li>
+          
+      </ul>
+      <div class="tab-content pt-2" id="myTabjustifiedContent">
+          <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
+              <table class="table" id="myTable">
+              <input type="text" hidden>
+                
+              <thead class="th-lg-12">
+                  <tr class="text-center bg-white border">
+                  
+                  <th>Order Date</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">OrderId</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Coupon Discount</th>
+                    <th>Order Total</th>
+                    <th scope="col">Payment Mode</th>
+                    
+                    <th scope="col">Action</th>
+                  </tr>
+              </thead>
+              {{#each response}}
+              <tbody class="bg-white align-center ">
+                  <tr class="text-center">     
+                  <td>{{this.date}}</td>
+                    <td>{{this.address.firstname}} {{this.address.lastname}}</td>  
+                    <td>{{this._id}}</td>
+                    <td>₹{{this.total}}</td>
+                    {{#if this.couponDiscount }}
+                    <td>₹{{this.couponDiscount}}</td>
+                    {{else}}
+                    <td>nil</td>
+                    {{/if}}
+                    {{#if this.priceAfterCoupondiscount}}
+                    <td>₹{{this.priceAfterCoupondiscount}}</td>
+                    {{else}}
+                    <td>₹{{this.total}}</td>
+                    {{/if}}
+                    <td>{{this.paymentMethod}}</td>
+                  <td>
+                      
+                      <a href="/admin/request-approved/{{this._id}}"><button type="button" class="btn btn-outline-success  mr-2" >
+                      Approve
+                      </button></a>
+                      <a href="/admin/request-rejected/{{this._id}}"><button type="button" class="btn btn-outline-danger">
+                      reject
+                      </button></a>
+                  </td>
+                  
+                  </tr>
+              </tbody>
+              {{/each}}
+              </table>  
+          </div>      
+          <div class="tab-pane fade col-12" id="profile-justified" role="tabpanel" aria-labelledby="profile-tab">
+            <table class="table" id="myTable1">
+              <input type="text" hidden>
+
+              <thead class="th-lg-12">
+                  <tr class="text-center bg-white border">
+                  
+                  <th>Order Date</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">OrderId</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Coupon Discount</th>
+                    <th>Order Total</th>
+                    <th scope="col">Payment Mode</th>
+ 
+                  </tr>
+              </thead>
+              {{#each response2}}
+              <tbody class="bg-white align-center ">
+                  <tr class="text-center">     
+                  <td>{{this.date}}</td>
+                    <td>{{this.address.firstname}} {{this.address.lastname}}</td>  
+                    <td>{{this._id}}</td>
+                    <td>₹{{this.total}}</td>
+                    {{#if this.couponDiscount }}
+                    <td>₹{{this.couponDiscount}}</td>
+                    {{else}}
+                    <td>nil</td>
+                    {{/if}}
+                    {{#if this.priceAfterCoupondiscount}}
+                    <td>₹{{this.priceAfterCoupondiscount}}</td>
+                    {{else}}
+                    <td>₹{{this.total}}</td>
+                    {{/if}}
+                    <td>{{this.paymentMethod}}</td>
+                  
+                  
+                  </tr>
+              </tbody>
+              {{/each}}
+              </table> 
+          </div>
+      </div><!-- End Default Tabs -->
+      </div>
+  </div>
+</main>

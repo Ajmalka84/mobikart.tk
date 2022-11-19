@@ -950,9 +950,9 @@ module.exports={
           if(req.session.loggedIn){
               userhelpers.findOrderforOrderHistory(req.session.user._id).then((response)=>{
                 response.forEach(element => {
-                //   if(element.status==='delivered'){
-                // element.tempstatus=true
-                // }else
+                  if(element.status==='delivered'){
+                element.tempstatus=true
+                }else
                 if(element.status==='cancelled'){
                   element.cancelstatus=true
                   }
@@ -960,7 +960,7 @@ module.exports={
                   //   element.pendingstatus = true
                   // }
                   else{
-                    element.otherstatus=true     
+                    element.otherstatus=true
                   }
             });
             console.log(response);
@@ -1000,8 +1000,22 @@ module.exports={
           console.log(error);
         } 
       },
-
       
+      returnRequest : (req,res)=>{
+        try {
+          console.log(req.body);
+          userhelpers.returnRequest(req.body).then((response)=>{
+            console.log(response);
+            res.redirect('/orderhistory')
+          }).catch((error)=>{
+            console.log(error);
+            throw error;
+          })
+        }catch (error) {
+          console.log(error);
+        } 
+      }, 
+
       couponValidate : async (req,res)=>{
         try {
       

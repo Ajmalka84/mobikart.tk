@@ -218,6 +218,28 @@ module.exports={
       throw error;
     })
   },
+  productReturn : (req, res)=>{
+    adminhelpers.returnOrders().then((response)=>{
+      adminhelpers.returnOrders2().then((response2)=>{
+        console.log(response);
+        console.log(response2);
+      res.render('admin/return-approval',{adminheader:true,adminlink:true,response,response2})
+    })
+  })
+  },
+  productApproved :  (req, res)=>{
+  
+    adminhelpers.approveRequest(req.params.id).then((response)=>{
+       res.redirect('/admin/return-approval')
+   })
+  },
+
+  productRejected :  (req, res)=>{
+  
+    adminhelpers.rejectRequest(req.params.id).then((response)=>{
+       res.redirect('/admin/return-approval')
+  })
+  },
 
   adminOrderManagement : (req,res)=>{
     adminhelpers.fullOrder().then((fullOrder)=>{

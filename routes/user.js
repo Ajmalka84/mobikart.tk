@@ -57,6 +57,7 @@ router.get('/orderhistory',middlewares.userSessionManagement,controllers.userOrd
 router.post('/cancelOrder',middlewares.userSessionManagement,controllers.userCancelOrder)
 router.get('/viewdetails/:id',middlewares.userSessionManagement,controllers.OrderDetails)
 router.get('/replace-order/:id',middlewares.userSessionManagement,controllers.rePlaceOrder)
+router.post('/return-request',middlewares.userSessionManagement,controllers.returnRequest)
 
 
 // coupon 

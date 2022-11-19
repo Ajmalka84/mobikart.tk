@@ -44,6 +44,11 @@ router.get('/ordermanagement/orderDetails',middlewares.adminSessionManagement,co
 router.post('/cancelOrder',middlewares.adminSessionManagement,controllers.adminCancelOrder)
 // order management 
 
+router.get('/return-approval',middlewares.adminSessionManagement,controllers.productReturn)
+router.get('/request-approved/:id',middlewares.adminSessionManagement,controllers.productApproved)
+router.get('/request-rejected/:id',middlewares.adminSessionManagement,controllers.productRejected)
+
+
 // sales report
 router.get('/salesReport',middlewares.adminSessionManagement,controllers.salesReport)
 // sales report 

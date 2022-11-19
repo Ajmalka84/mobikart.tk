@@ -1043,6 +1043,23 @@ placeOrder :(userId,productId,body,total,couponDiscount)=>{
             }        
         })
     },
+
+    returnRequest : (body)=>{
+        return new Promise ((resolve,reject)=>{
+            try {
+                db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objId(body.orderId)},{$set : {returnRequest : 'pending',status: 'return pending'}}).then((request)=>{
+                    console.log(request);
+                    console.log('request');
+                    resolve()
+                }).catch((error)=>{
+                  reject(error)
+                })
+            } catch (error) {
+              reject(error)
+            }
+        })
+    },
+
     cancelOrders: (body)=>{
         return new Promise((resolve,reject)=>{
             try {

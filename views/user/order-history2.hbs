@@ -65,13 +65,14 @@
 								{{/if}}
                                 <td>{{this._id}}</td>
                                 <td>{{this.status}}</td>
-								{{!-- {{#if this.tempstatus}}
+								{{#if this.tempstatus}}
 								<td class="remove-col">
-								<button type="button" class="btn-md btn-outline-warning ">Return</button></td>
+								<button type="button" class="btn-md btn-outline-warning " data-bs-toggle="modal" data-bs-target="#exampleModal{{this._id}}">Return</button></td>
+								
 								<td>
 								<a href="/viewdetails/{{this._id}}"><button type="submit" class="btn-md btn-outline-primary">Details</button></a>
 								</td>	
-								{{/if}} --}}
+								{{/if}}
 								{{#if this.cancelstatus}}
 								<td class="remove-col">
 								<button type="button"  class="btn-md btn-outline-danger " disabled>Cancel</button></td>
@@ -113,6 +114,46 @@
             	</div><!-- End .container -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
+{{#each response}}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{this._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Return Request</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/return-request" method="post" id="addCategoryoffer">
+      <div class="modal-body">
+        {{!-- <input type="hidden" name="brand"  value="{{this.brand}}" > --}}
+        <input type="hidden" name="orderId"  value="{{this._id}}">
+        {{!-- <input type="number" style="width: 100%" name="categoryOffer" id="categoryOffer"> --}}
+        <div class="p-5">
+		<input type="radio" class="form-check-input" name="checkbox" value="Product Damaged" id="reason">
+		<label class="form-check-label ml-4" for="reason">Product Damaged</label>
+        </div>
+
+		<div class="p-5">
+		<input type="radio" class="form-check-input" name="checkbox" value="Product Not satisfied" id="reason">
+		<label class="form-check-label ml-4 " for="reason">Product Not satisfied</label>
+        </div>
+
+		<div class="p-5">
+		<input type="radio" class="form-check-input" name="checkbox" value="Other Reasons" id="reason">
+		<label class="form-check-label ml-4" for="reason">Other Reasons</label>
+        </div>
+
+	  </div>
+      <div class="modal-footer">
+        {{!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> --}}
+        <button type="submit"  class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{{/each}}
 
 <script>
   $(document).ready(function(){
