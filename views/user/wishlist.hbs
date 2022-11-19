@@ -41,16 +41,16 @@
                                 <h3 class="product-title">
                                     <a href="#">{{this.products.name}}</a>
                                     {{#if this.selectedOffer}}
-                                    <br><span><p class="text-success"><del>{{this.products.price}}</del>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.selectedOffer}}% Offer</p></span>
+                                    <br><span><p class="text-success"><del>₹{{this.products.price}}</del>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.selectedOffer}}% Offer</p></span>
                                     {{/if}}
                                 </h3><!-- End .product-title -->
                             </div><!-- End .product -->
                         </td>
                         {{#if this.selectedOffer}}
-                        <td class="price-col">{{this.priceAfterdiscount}}</td>
+                        <td class="price-col">₹{{this.priceAfterdiscount}}</td>
                         
                         {{else}}
-                        <td class="price-col">{{this.products.price}}</td>
+                        <td class="price-col">₹{{this.products.price}}</td>
                         {{/if}}
                         {{#if this.stockstatus}}
                         <td class="stock-col"><span class="in-stock">In stock</span></td>
