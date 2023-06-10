@@ -3,7 +3,7 @@
 MobiKart is a feature-rich e-commerce application developed using Node.js, Express.js, and MongoDB. It provides a comprehensive set of functionalities to create a seamless online shopping experience for users.
 
 
-**click to view app** : www.mobikart.tk
+**click to view app** : http://mobikart.tk
 
 # Features
 **User Management**: MobiKart offers user registration, login, and profile management capabilities. Users can easily create accounts, update their information, and track their orders.
